@@ -1,0 +1,12 @@
+{{#each comicData}}
+    <div>
+        <h4>
+        {{this.title}}
+        </h4>
+        <img src="{{this.thumbnail.path}}.jpg" alt="">
+        <p>
+        UPC: {{this.upc}}
+        </p>
+
+    </div>
+{{/each}}
