@@ -68,6 +68,54 @@ app.get('/comics', (req, res) => {
     }
 );
 
+app.get('/library', (req, res) => {
+  
+    let ts = new Date().getTime();
+    let hash = md5(ts + apiKey + publicKey); 
+    let apiAuthenticationString = 'ts=' + ts +  '&apikey=' + publicKey + '&hash=' + hash; 
+    let requestURL = apiURL + 'comics?'  + 'limit=20&' + apiAuthenticationString;
+    console.log(requestURL);
+
+    rp(requestURL)
+        .then((data)=> {
+            let comics = JSON.parse(data);
+            let results = comics.data.results;
+              // console.log(results);
+            res.render('library', {
+                results 
+            });
+        }).catch((error) => {
+            res.send(error);
+        }); 
+    }  
+);
+
+app.get('/characters', (req, res) => {
+  
+    let ts = new Date().getTime();
+    let hash = md5(ts + apiKey + publicKey); 
+    let apiAuthenticationString = 'ts=' + ts +  '&apikey=' + publicKey + '&hash=' + hash; 
+    let requestURL = apiURL + 'characters?'  + 'limit=20&' + apiAuthenticationString;
+    console.log(requestURL);
+
+    rp(requestURL)
+        .then((data)=> {
+            let comics = JSON.parse(data);
+            let results = comics.data.results;
+              // console.log(results);
+            res.render('characters', {
+                results 
+            });
+        }).catch((error) => {
+            res.send(error);
+        }); 
+    }  
+);
+
+
+
+
+
 // Request Url: http://gateway.marvel.com/v1/public/comics
 // Request Method: GET
 // Params: {
