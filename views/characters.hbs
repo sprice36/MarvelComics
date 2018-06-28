@@ -3,15 +3,12 @@
     <div>
 
 <div>
-    {{#each results}}
-    <h1>{{this.name}}</h1>
-    <img src='{{this.thumbnail.path}}.jpg' alt=""> 
-
     {{#each allCharacters}}
         <h1>{{this.name}}</h1>
         <a href="/characters/{{this.id}}">
-            <img src='{{this.thumbnail.path}}/portrait_incredible.jpg' alt=""> 
+            <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
 
     {{/each}}
+   
 </div>
