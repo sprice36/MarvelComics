@@ -94,6 +94,37 @@ app.get('/comics', (req, res) => {
 });
 
 
+app.get('/characterstartswith/:id', (req, res) => {
+    let characters = searchAllCharacters()
+    characters
+        .then((characters) => {
+            if (characters === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                // console.log(allComics);
+                res.render('characters', {
+                    characters
+                });
+            }
+        });
+    }  
+);
+app.get('/comicstartswith/:id', (req, res) => {
+    let comics = searchAllComics()
+    comics
+        .then((comics) => {
+            if (comics === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                // console.log(allComics);
+                res.render('characters', {
+                    comics
+                });
+            }
+        });
+    }  
+);
+
 //server initialization
 app.listen(process.env.PORT, () => {
     console.log(`Your server is running at http://localhost:${process.env.PORT}`);
