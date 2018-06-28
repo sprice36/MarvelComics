@@ -144,7 +144,7 @@ app.get('/library', (req, res) => {
                 res.send('ERROR')
             } else {
                 // console.log(allComics);
-                res.render('library', {
+                res.render('comics', {
                     allComics
                 });
             }
@@ -166,6 +166,37 @@ app.get('/characters', (req, res) => {
             }
         });
 
+    }  
+);
+
+app.get('/characterstartswith/:id', (req, res) => {
+    let characters = searchAllCharacters()
+    characters
+        .then((characters) => {
+            if (characters === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                // console.log(allComics);
+                res.render('characters', {
+                    characters
+                });
+            }
+        });
+    }  
+);
+app.get('/comicstartswith/:id', (req, res) => {
+    let comics = searchAllComics()
+    comics
+        .then((comics) => {
+            if (comics === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                // console.log(allComics);
+                res.render('characters', {
+                    comics
+                });
+            }
+        });
     }  
 );
 
