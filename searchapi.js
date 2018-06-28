@@ -34,7 +34,7 @@ function searchComicsByCharID(charID) {
     return rp(requestURL)
         .then((data) => {
             let comics = JSON.parse(data);
-            return comics.data.results;
+            return comics.data;
         })
         .catch(error => {
             let message = 'character not found';
@@ -51,7 +51,7 @@ function searchAllComics() {
     return rp(requestURL)
         .then((data) => {
             let comics = JSON.parse(data);
-            let results = comics.data.results;
+            let results = comics.data;
             return results
             })
         .catch((error) => {
@@ -69,7 +69,7 @@ function searchAllCharacters() {
     return rp(requestURL)
         .then((data) => {
             let comics = JSON.parse(data);
-            let results = comics.data.results;
+            let results = comics.data;
             return results
         })
         .catch((error) => {

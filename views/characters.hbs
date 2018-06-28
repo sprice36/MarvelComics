@@ -1,9 +1,9 @@
 <div>
-    <a href = "/homepage">Back to homepage</a>
-    <div>
+    <a href="../">Back to homepage</a>
+</div>
 
 <div>
-    {{#each allCharacters}}
+    {{#each allCharacters.results}}
         <h1>{{this.name}}</h1>
         <a href="/characters/{{this.id}}">
             <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 

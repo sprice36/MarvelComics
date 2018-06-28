@@ -39,8 +39,7 @@ app.use(staticMiddleware);
 
 // setupAuth(app);
 
-
-app.get('/homepage', (req, res) => {
+app.get('/', (req, res) => {
     res.render('homepage', {layout : 'homepage'});
 })
 
@@ -58,9 +57,7 @@ app.get('/characters', (req, res) => {
                 });
             }
         });
-
-    }  
-);
+});
 
 //search comics associated with certain character
 app.get('/characters/:id', (req, res) => {
@@ -76,8 +73,6 @@ app.get('/characters/:id', (req, res) => {
         })
 });
 
-
-
 app.get('/comics', (req, res) => {
   let allComics = searchAllComics()
     allComics
@@ -85,14 +80,12 @@ app.get('/comics', (req, res) => {
             if (allComics === 'there was an error') {
                 res.send('ERROR')
             } else {
-                // console.log(allComics);
                 res.render('comics', {
                     allComics
                 });
             }
         });
 });
-
 
 app.get('/characterstartswith/:id', (req, res) => {
     let characters = searchAllCharacters()
