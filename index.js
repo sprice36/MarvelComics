@@ -40,38 +40,8 @@ app.use(staticMiddleware);
 // setupAuth(app);
 
 app.get('/homepage', (req, res) => {
-    res.render('homepage'); 
+    res.render('homepage', {layout : 'homepage'});
 })
-
-//get comics associated with a character
-app.get('/characters/:id', (req, res) => {
-    let comicData = apiFunctions.searchComicsByCharName(req.params.id)
-    comicData
-        .then((comicData) => {
-            if (comicData === 'character not found') {
-                res.send('character not found')
-            } else {
-                console.log(comicData);
-                res.render('singleCharacter', {comicData});
-            }
-        })
-});
-
-
-
-app.get('/comics', (req, res) => {
-    let allComics = searchAllComics()
-    allComics
-        .then((allComics) => {
-            if (allComics === 'there was an error') {
-                res.send('ERROR')
-            } else {
-                res.render('comics', {
-                    allComics
-                });
-            }
-        });
-});
 
 //search all characters
 app.get('/characters', (req, res) => {
@@ -84,6 +54,34 @@ app.get('/characters', (req, res) => {
                 // console.log(allComics);
                 res.render('characters', {
                     allCharacters
+                });
+            }
+        });
+});
+
+//search comics associated with certain character
+app.get('/characters/:id', (req, res) => {
+    let comicData = searchComicsByCharID(req.params.id)
+    comicData
+        .then((comicData) => {
+            if (comicData === 'character not found') {
+                res.send('character not found')
+            } else {
+                console.log(comicData);
+                res.render('singleCharacter', {comicData});
+            }
+        })
+});
+
+app.get('/comics', (req, res) => {
+  let allComics = searchAllComics()
+    allComics
+        .then((allComics) => {
+            if (allComics === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                res.render('comics', {
+                    allComics
                 });
             }
         });
