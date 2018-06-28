@@ -34,17 +34,8 @@ app.use(staticMiddleware);
 
 // setupAuth(app);
 
-app.get('/characters/:id', (req, res) => {
-    let comicData = apiFunctions.searchComicsByCharName(req.params.id)
-    comicData
-        .then((comicData) => {
-            if (comicData === 'character not found') {
-                res.send('character not found')
-            } else {
-                console.log(comicData);
-                res.render('singleCharacter', {comicData});
-            }
-        })
+app.get('/homepage', (req, res) => {
+    res.render('homepage');
 });
 
 app.get('/comics', (req, res) => {
@@ -68,28 +59,6 @@ app.get('/comics', (req, res) => {
     }
 );
 
-app.get('/library', (req, res) => {
-  
-    let ts = new Date().getTime();
-    let hash = md5(ts + apiKey + publicKey); 
-    let apiAuthenticationString = 'ts=' + ts +  '&apikey=' + publicKey + '&hash=' + hash; 
-    let requestURL = apiURL + 'comics?'  + 'limit=20&' + apiAuthenticationString;
-    console.log(requestURL);
-
-    rp(requestURL)
-        .then((data)=> {
-            let comics = JSON.parse(data);
-            let results = comics.data.results;
-              // console.log(results);
-            res.render('library', {
-                results 
-            });
-        }).catch((error) => {
-            res.send(error);
-        }); 
-    }  
-);
-
 app.get('/characters', (req, res) => {
   
     let ts = new Date().getTime();
@@ -104,6 +73,43 @@ app.get('/characters', (req, res) => {
             let results = comics.data.results;
               // console.log(results);
             res.render('characters', {
+                results 
+            });
+        }).catch((error) => {
+            res.send(error);
+        }); 
+    }  
+);
+
+app.get('/characters/:id', (req, res) => {
+    let comicData = apiFunctions.searchComicsByCharName(req.params.id)
+    comicData
+        .then((comicData) => {
+            if (comicData === 'character not found') {
+                res.send('character not found')
+            } else {
+                console.log(comicData);
+                res.render('singleCharacter', {comicData});
+            }
+        })
+});
+
+
+
+app.get('/library', (req, res) => {
+  
+    let ts = new Date().getTime();
+    let hash = md5(ts + apiKey + publicKey); 
+    let apiAuthenticationString = 'ts=' + ts +  '&apikey=' + publicKey + '&hash=' + hash; 
+    let requestURL = apiURL + 'comics?'  + 'limit=20&' + apiAuthenticationString;
+    console.log(requestURL);
+
+    rp(requestURL)
+        .then((data)=> {
+            let comics = JSON.parse(data);
+            let results = comics.data.results;
+              // console.log(results);
+            res.render('library', {
                 results 
             });
         }).catch((error) => {
