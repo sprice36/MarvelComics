@@ -1,5 +1,6 @@
-
 <div>
-    <h1>{{results.title}}</h1>
-    <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt="">
+    {{#each allComics}}
+    <h1>{{this.title}}</h1>
+    <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
+    {{/each}}
 </div>

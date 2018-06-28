@@ -61,7 +61,7 @@ app.get('/comics', (req, res) => {
                 res.send('ERROR')
             } else {
                 // console.log(allComics);
-                res.render('library', {
+                res.render('comics', {
                     allComics
                 });
             }
