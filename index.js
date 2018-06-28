@@ -39,7 +39,7 @@ app.use(staticMiddleware);
 
 // setupAuth(app);
 
-app.get('/homepage', (req, res) => {
+app.get('/', (req, res) => {
     res.render('homepage', {layout : 'homepage'});
 })
 
