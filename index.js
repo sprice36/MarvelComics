@@ -51,7 +51,7 @@ app.get('/characters', (req, res) => {
             if (allCharacters === 'there was an error') {
                 res.send('ERROR')
             } else {
-                // console.log(allComics);
+                // console.log(allCharacters);
                 res.render('characters', {
                     allCharacters
                 });
