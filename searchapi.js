@@ -64,7 +64,7 @@ function searchAllCharacters() {
     let ts = new Date().getTime();
     let hash = md5(ts + apiKey + publicKey);
     let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
-    let requestURL = apiURL + 'characters?' + 'offset=&' + 'limit=20&' + apiAuthenticationString;
+    let requestURL = apiURL + 'characters?' + 'offset=450&' + 'limit=20&' + apiAuthenticationString;
     console.log(requestURL);
     return rp(requestURL)
         .then((data) => {
