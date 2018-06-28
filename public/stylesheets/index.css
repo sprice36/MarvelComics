@@ -1,0 +1,23 @@
+html{
+
+   height : 100%;
+ 
+} 
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-width : 10px;
+    border-color: grey;
+    height: 75%;
+    width : 75%;
+}
+
+.input-div{
+    display: flex;
+    align-content: center; 
+    width: 100% ;
+}
+
+
