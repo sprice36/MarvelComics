@@ -3,10 +3,6 @@
     <div>
 
 <div>
-    {{#each results}}
-    <h1>{{this.name}}</h1>
-    <img src='{{this.thumbnail.path}}.jpg' alt=""> 
-
     {{#each allCharacters}}
         <h1>{{this.name}}</h1>
         <a href="/characters/{{this.id}}">
@@ -14,4 +10,5 @@
         </a>
 
     {{/each}}
+   
 </div>
