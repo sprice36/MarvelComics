@@ -13,7 +13,8 @@ const {
     searchComicsByCharID,
     searchComicsByCharName,
     searchAllComics,
-    searchAllCharacters
+    searchAllCharacters,
+    searchDatabase
 } = require('./searchapi');
 
 const setupAuth = require('./auth');
@@ -39,7 +40,8 @@ app.use(staticMiddleware);
 
 // setupAuth(app);
 
-app.get('/', (req, res) => {
+
+app.get('/homepage', (req, res) => {
     res.render('homepage', {layout : 'homepage'});
 })
 
@@ -51,27 +53,36 @@ app.get('/characters', (req, res) => {
             if (allCharacters === 'there was an error') {
                 res.send('ERROR')
             } else {
-                // console.log(allCharacters);
+                // console.log(allComics);
                 res.render('characters', {
                     allCharacters
                 });
             }
         });
-});
+
+    }  
+);
 
 //search comics associated with certain character
 app.get('/characters/:id', (req, res) => {
-    let comicData = searchComicsByCharID(req.params.id)
+    
+    let comicData = searchDatabase(req.params.id); 
+     return comicData;
+    
+    //let comicData = searchComicsByCharID(req.params.id)
+    console.log(comicData);
     comicData
         .then((comicData) => {
-            if (comicData === 'character not found') {
+          /*  if (comicData === 'character not found') {
                 res.send('character not found')
             } else {
-                console.log(comicData);
+                console.log(comicData); */
                 res.render('singleCharacter', {comicData});
-            }
-        })
+            })
+       /* }) */ 
 });
+
+
 
 app.get('/comics', (req, res) => {
   let allComics = searchAllComics()
@@ -80,6 +91,7 @@ app.get('/comics', (req, res) => {
             if (allComics === 'there was an error') {
                 res.send('ERROR')
             } else {
+                // console.log(allComics);
                 res.render('comics', {
                     allComics
                 });
@@ -87,36 +99,6 @@ app.get('/comics', (req, res) => {
         });
 });
 
-app.get('/characterstartswith/:id', (req, res) => {
-    let characters = searchAllCharacters()
-    characters
-        .then((characters) => {
-            if (characters === 'there was an error') {
-                res.send('ERROR')
-            } else {
-                // console.log(allComics);
-                res.render('characters', {
-                    characters
-                });
-            }
-        });
-    }  
-);
-app.get('/comicstartswith/:id', (req, res) => {
-    let comics = searchAllComics()
-    comics
-        .then((comics) => {
-            if (comics === 'there was an error') {
-                res.send('ERROR')
-            } else {
-                // console.log(allComics);
-                res.render('characters', {
-                    comics
-                });
-            }
-        });
-    }  
-);
 
 //server initialization
 app.listen(process.env.PORT, () => {
