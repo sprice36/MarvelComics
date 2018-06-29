@@ -1,6 +1,7 @@
 CREATE TABLE customer (
     first_name varchar(25) NOT NULL,
     last_name varchar(35) NOT NULL,
+    image varchar(30),
     email varchar(50) PRIMARY KEY
 );
 
@@ -35,6 +36,12 @@ CREATE TABLE comics_collection (
     collectors_comic_id integer NOT NULL REFERENCES comics(comic_id),
     collectors_comic_title varchar(50) NOT NULL REFERENCES comics(title)
 );
+
+CREATE TABLE characters_comics (
+   url character varying PRIMARY KEY,
+   json character varying NOT NULL
+);
+
 /*
 INSERT INTO characters_comics (
   url, json
@@ -78,11 +85,11 @@ INSERT INTO characters_comics (
 
  ); */
 
-INSERT INTO characters_comics (
-    url, json
-) VALUES ( ${`requestURL`}, ${`comics.data`}
-)
+-- INSERT INTO characters_comics (
+--     url, json
+-- ) VALUES ( ${`requestURL`}, ${`comics.data`}
+-- )
 
-SELECT json 
-FROM characters_comics 
-WHERE  comicURL == url;
+-- SELECT json 
+-- FROM characters_comics 
+-- WHERE  comicURL == url;

@@ -18,8 +18,11 @@ const cn = {
 const db = pgp(cn);
 
 function getJsonData(comicURL) {
-    console.log("running getjson function");
     return db.oneOrNone( "SELECT json FROM characters_comics WHERE url = '$1#'", [comicURL]) ; 
+}
+
+function addJsonData(comicsURL,dataString) {
+    return db.one("insert into characters_comics (url, json) values ('$1#', '$2#')", [comicsURL, dataString]);
 }
 
 /*
@@ -30,5 +33,6 @@ getJsonData('http://gateway.marvel.com/v1/public/characters/1011256/comics?hasDi
 
 
 module.exports = {
-    getJsonData
+    getJsonData,
+    addJsonData
 }; 
