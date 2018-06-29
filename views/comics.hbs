@@ -36,7 +36,9 @@
 <div>
     {{#each allComics.results}}
     <h1>{{this.title}}</h1>
+    <a href = '/comics/details/{{this.id}}'>
     <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
+     </a>
     {{/each}}
 </div>
 
