@@ -5,9 +5,10 @@ const apiKey = process.env.API_KEY;
 const publicKey = process.env.PUBLIC_KEY;
 const {  
         getJsonData,
-        getCollection
-
+        getCollection, 
+        addJsonData 
 } = require('./db')
+
 function searchComicsByCharName(character) {
     let charQuery = character
     let ts = new Date().getTime();
@@ -33,34 +34,45 @@ function searchComicsByCharName(character) {
 function searchDatabase(charID){
     let comicURL = apiURL + `characters/${charID}/comics?offset=&orderBy=title&limit=10`;
     let databaseJson =  getJsonData(comicURL);
-    // console.log(databaseJson);
+
     return databaseJson
         .then((data) => {
-            console.log(data.json);
-            // let comics = JSON.parse(data);
-            return data.json
-            // let jsonDATA = JSON.parse(data.json);
+            console.log('Data via DB....');
             // console.log(data.json);
-            // return JSON.parse(data.json)
-        })
+            let newData = data.json;
+            // console.log(newData);
+            let parsedData = JSON.parse(newData);
+            // console.log(parsedData.data);
+            return parsedData.data
+           })
         .catch(error => {
             let message = 'character not found';
             return message
            })
-        
-}
+        }
 
-function searchComicsByCharID(charID) {
-    // console.log('running now');
+
+function searchComicsByCharID(charID, comicURL) {
     let ts = new Date().getTime();
     let hash = md5(ts + apiKey + publicKey);
     let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
-    let requestURL = apiURL + `characters/${charID}/comics? + 'offset=&' + 'orderBy=title&' +' limit=10&` + apiAuthenticationString
+    // let comicURL = apiURL + `characters/${charID}/comics?offset=&orderBy=title&limit=10&`;
+    let requestURL = comicURL + '&' + apiAuthenticationString
     console.log(requestURL)
     return rp(requestURL)
          .then((data) => {
+            //send data to db BEFORE json.parse...
+            addJsonData(comicURL, data)
+                .then(() => {
+                    console.log('added data to DB');
+                    return
+                })
+                .catch((error) => {
+                    return error.message
+                })
             let comics = JSON.parse(data);
-      //    console.log(comics.data);
+            console.log('data via API...');
+            // console.log(comics.data);
             return comics.data;
         })
         .catch(error => {
@@ -151,7 +163,6 @@ function searchCharacterByLetter(letter) {
         .then((data) => {
             let characters = JSON.parse(data);
             let results = characters.data;
-           // console.log(results);
             return results
         })
         .catch(error => {

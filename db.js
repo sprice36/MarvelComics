@@ -18,7 +18,6 @@ const cn = {
 const db = pgp(cn);
 
 function getJsonData(comicURL) {
-    console.log("running getjson function");
     return db.oneOrNone( "SELECT json FROM characters_comics WHERE url = '$1#'", [comicURL]) ; 
 }
 
@@ -36,27 +35,24 @@ function getCollectionAll(){
   
   }
 
+/*
 function saveComic(){
   console.log("saving comic..")
   return db.one("INSERT into comics_collection2 (collectors)")  
   return db.one("insert into Todos (title, isdone) values ('$1#', false ) returning id", [title]); 
 
-}
+} */
   
 
-/*
-getJsonData('http://gateway.marvel.com/v1/public/characters/1011256/comics?hasDigitalIssue=true&orderBy=title&limit=10')
- .then((data) => {console.log(data); })
- .catch((error) => {console.log(error) ; });
- */
-/*
- getCollection('skphoopa@gmail.com')
- .then((data) => {console.log(data); })
- .catch((error) => {console.log(error) ; });
-*/
+function addJsonData(comicsURL,dataString) {
+    return db.one("insert into characters_comics (url, json) values ('$1#', '$2#')", [comicsURL, dataString]);
+}
  
 module.exports = {
     getJsonData ,
     getCollection,
-    getCollectionAll
-};  
+    getCollectionAll,
+    getJsonData,
+    addJsonData
+}; 
+

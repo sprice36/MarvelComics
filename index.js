@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const static = express.static;
 const rp = require('request-promise');
-const apiURL = 'http://gateway.marvel.com/v1/public/';
+const apiURL = 'https://gateway.marvel.com/v1/public/';
 const apiKey = process.env.API_KEY;
 const publicKey = process.env.PUBLIC_KEY;
 const md5 = require('md5');
@@ -20,6 +20,10 @@ const {
     searchComicsByLetter,
     searchDatabase
 } = require('./searchapi');
+const { 
+    getJsonData,
+    addJsonData
+} = require('./db');
 
 const {
     getCollection, 
@@ -53,8 +57,8 @@ app.get('/', (req, res) => {
     res.render('homepage', {
         layout: 'homepage',
         isLoggedIn: req.isAuthenticated()
-    })
-});
+    });
+})
 
 //search all characters
 app.get('/characters', (req, res) => {
@@ -70,9 +74,7 @@ app.get('/characters', (req, res) => {
                 });
             }
         });
-
-    }  
-);
+});
 
 //search characters by starting letter
 app.get('/characters/startswith/:id', (req, res) => {
@@ -92,31 +94,37 @@ app.get('/characters/startswith/:id', (req, res) => {
 
 //search comics associated with certain character
 app.get('/characters/:id', (req, res) => {
-    
-    let comicData = searchDatabase(req.params.id); 
-    let comicsID =  
-    console.log(req.params.id);
-     //console.log(comicData);
-   // return comicData
-    //  .then (( data => {
-      //    console.log(data.json);
-        //return JSON.parse(data.json);
-    //  }))
-    //  .catch((error => {
-        //  console.log("error occured");
-    //  }))
-    //let comicData = searchComicsByCharID(req.params.id)
-   // console.log(comicData);
-      comicData
-       .then((comicData) => {
-            if (comicData === 'character not found') {
-                res.send('character not found')
+    let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=10`
+    getJsonData(comicURL)
+        .then((data) => {
+            if (data) {
+                console.log('found data in local DB');
+                let comicData = searchDatabase(req.params.id);
+                return comicData
             } else {
-                console.log(comicData); 
-                res.render('singleCharacter', {comicData});
-             }
-        })  
-});
+                console.log('did not find data, running API call')
+                let comicData = searchComicsByCharID(req.params.id, comicURL);
+                return comicData
+            }
+        // return comicData
+        })
+        .then((comicData) => {
+                    if (comicData === 'character not found') {
+                        console.log('not found');
+                        res.send('character not found')
+                    } else {
+                        // console.log(comicData); 
+                        console.log('njoy data');
+                        res.render('singleCharacter', {
+                            comicData
+                        })
+                    }
+        })
+        .catch(error => {
+            return res.send(error.message)
+        })
+})
+
 
 app.get('/comics/startswith/:id', (req, res) => {
     let allComics = searchComicsByLetter(req.params.id)
@@ -181,7 +189,7 @@ app.get('/collection', (req, res) => {
 //server initialization
 app.listen(process.env.PORT, () => {
     console.log(`Your server is running at http://localhost:${process.env.PORT}`);
-})
+});
 
 // Request Url: http://gateway.marvel.com/v1/public/comics
 // Request Method: GET
@@ -191,5 +199,5 @@ app.listen(process.env.PORT, () => {
 //   "hash": "your hash"
 // }
 // Headers: {
-//   Accept: */*
+//   Accept: 
 // }
