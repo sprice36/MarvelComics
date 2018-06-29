@@ -11,4 +11,12 @@
       
        <div class = "collection" data-target-collection>  
     Collection</div>
+    <div class="container">
+      {{#if isLoggedIn}}
+      <a href="/logout">Log Out</a>
+      {{else}}
+      <a href="/login">Log In</a>
+      {{/if}}
     </div>
+    </div>
+    

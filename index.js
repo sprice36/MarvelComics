@@ -41,10 +41,13 @@ app.set('view engine', '.hbs');
 const staticMiddleware = express.static('public');
 app.use(staticMiddleware);
 
-// setupAuth(app);
+setupAuth(app);
 
 app.get('/', (req, res) => {
-    res.render('homepage', {layout : 'homepage'});
+    res.render('homepage', {
+        layout: 'homepage',
+        isLoggedIn: req.isAuthenticated()
+    });
 })
 
 //search all characters
