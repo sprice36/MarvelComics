@@ -32,7 +32,6 @@ function getCollectionAll(){
     console.log("running get collection all function");
    // return db.any("SELECT collectors_comic_id, collectors_comic_title FROM comics_collection2 WHERE collectors_email ILIKE '%$1#%' ", [userEmail]);
    return db.any('SELECT * FROM comics_collection2' );
-  
   }
 
 function saveComic(id, title, description, image, characters){
@@ -43,15 +42,13 @@ function saveComic(id, title, description, image, characters){
 function saveComicToUserCollection(){}
 
 function addJsonData(comicsURL,dataString) {
+    console.log('adding api data to DB');
     return db.one("insert into characters_comics (url, json) values ('$1#', '$2#')", [comicsURL, dataString]);
 }
- /*
-saveComic(37543,'MAvengers: The Initiative (2007) #26', 'testdescription' , 'imageurl' , 'acharacter')
-.then((data) => {console.log(data); })
- .catch((error)  => {console.log(error); });
- */
+// function addNewUser(email)
+ 
 module.exports = {
-    getJsonData ,
+    getJsonData,
     getCollection,
     getCollectionAll,
     getJsonData,

@@ -1,9 +1,9 @@
 const passport = require('passport');
 const GithubStrategy = require('passport-github').Strategy;
-const session = require('express-session');
-var FileStore = require('session-file-store')(session);
 // const GoogleStrategy = require('passport-google-oauth20').Strategy
 // const FacebookStrategy = require('passport-facebook').Strategy;
+const session = require('express-session');
+var FileStore = require('session-file-store')(session);
 const db = require('./db')
 
 // const cookieParser = require('cookie-parser')
@@ -28,9 +28,33 @@ const setupAuth = (app) => {
   passport.use(new GithubStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/github/auth"
+    callbackURL: "http://localhost:3000/github/auth",
+    // profileFields: ['id', 'email','displayName', 'photos'] this is for facebook auth
   }, (accessToken, refreshToken, profile, done) => {
-
+    //Facebook data
+    // {
+    //   id: '10156948571065579',
+    //   username: undefined,
+    //   displayName: 'Stephen Jarrett',
+    //   name: {
+    //     familyName: undefined,
+    //     givenName: undefined,
+    //     middleName: undefined
+    //   },
+    //   gender: undefined,
+    //   profileUrl: undefined,
+    //   provider: 'facebook',
+    //   _raw: '{"name":"Stephen Jarrett","id":"10156948571065579"}',
+    //   _json: {
+    //     name: 'Stephen Jarrett',
+    //     id: '10156948571065579'
+    //   }
+    // }
+    // let firstName = profile.displayName.split(' ')[0];
+    // let lastName = profile.displayName.split(' ')[1];
+    // console.log(firstName);
+    // console.log(lastName);
+    // console.log(profile.id);
     return done(null, profile);
     // // TODO: replace this with code that finds the user
     // // in the database.
@@ -100,21 +124,21 @@ const setupAuth = (app) => {
   // actually said it was ok.
   // The actual route handler is just going to redirect us to the home page.
   app.get('/github/auth',
-    passport.authenticate('github', { failureRedirect: '/login' }),
+    passport.authenticate('github', {
+      failureRedirect: '/login'
+    }),
     (req, res) => {
       // if you don't have your own route handler after the passport.authenticate middleware
       // then you get stuck in the infinite loop
-
       console.log('you just logged in');
       console.log(req.isAuthenticated());
       req.session.save(() => {
         // make sure the session is saved
         // before we send them to the homepage!
-        res.redirect('/');
+      res.redirect('/');
       });
     }
   );
-
   // That's it.
   // That's the end of our passport setup for github
 }

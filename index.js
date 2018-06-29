@@ -18,7 +18,8 @@ const {
     searchSpecificComic,
     searchCharacterByLetter,
     searchComicsByLetter,
-    searchDatabase
+    searchDatabase,
+    searchDatabaseURL
 } = require('./searchapi');
 const { 
     getJsonData,
@@ -30,7 +31,6 @@ const {
     getCollectionAll
 } = require('./db');
 
-
 const {
     saveComic
 } = require('./db');
@@ -38,7 +38,8 @@ const {
 const setupAuth = require('./auth');
 const ensureAuthenticated = require('./auth').ensureAuthenticated;
 
-// const Todo = require('./db');
+const setupAuth = require('./authalt');
+const ensureAuthenticated = require('./authalt').ensureAuthenticated;
 
 const expressHbs = require('express-handlebars');
 
@@ -97,8 +98,24 @@ app.get('/characters/startswith/:id', (req, res) => {
         });
 });
 
+//goto characters specific details page
+app.get('/characters/details/:id', (req, res) => {
+    let characterDetail = searchSpecificCharacter(req.params.id)
+    characterDetail
+        .then((characterDetail) => {
+            if (characterDetail === '404') {
+                res.send('404')
+            } else {
+                // console.log(allComics);
+                res.render('characterDetailPage', {
+                    characterDetail
+                });
+            }
+        });
+});
+
 //search comics associated with certain character
-app.get('/characters/:id', (req, res) => {
+app.get('/characters/details/:id/comics', (req, res) => {
     let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=10`
     getJsonData(comicURL)
         .then((data) => {
@@ -120,7 +137,7 @@ app.get('/characters/:id', (req, res) => {
                     } else {
                         // console.log(comicData); 
                         console.log('njoy data');
-                        res.render('singleCharacter', {
+                        res.render('characterInComics', {
                             comicData
                         })
                     }
@@ -147,8 +164,20 @@ app.get('/comics/startswith/:id', (req, res) => {
 });
 
 app.get('/comics', (req, res) => {
-  let allComics = searchAllComics()
-    allComics
+    let comicURL = apiURL + 'comics?' + 'offset=&' + 'limit=20&';
+    getJsonData(comicURL)
+        .then((data) => {
+            if (data) {
+                console.log('found data in local DB');
+                let allComics = searchDatabaseURL(comicURL);
+                return allComics
+            } else {
+                console.log('did not find data, running API call')
+                let allComics = searchAllComics(comicURL);
+                return allComics
+            }
+            // return allComics
+        })
         .then((allComics) => {
             if (allComics === 'there was an error') {
                 res.send('ERROR')
@@ -157,7 +186,7 @@ app.get('/comics', (req, res) => {
                     allComics
                 });
             }
-        });
+        })
 });
 
 app.get('/comics/details/:id', (req, res) => {
