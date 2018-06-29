@@ -25,6 +25,11 @@ const {
     addJsonData
 } = require('./db');
 
+const {
+    getCollection, 
+    getCollectionAll
+} = require('./db');
+
 const setupAuth = require('./auth');
 const ensureAuthenticated = require('./auth').ensureAuthenticated;
 
@@ -120,6 +125,7 @@ app.get('/characters/:id', (req, res) => {
         })
 })
 
+
 app.get('/comics/startswith/:id', (req, res) => {
     let allComics = searchComicsByLetter(req.params.id)
     allComics
@@ -148,6 +154,37 @@ app.get('/comics', (req, res) => {
             }
         });
 });
+
+app.get('/comicsdetail/:id', (req, res) => {
+    let allComics = searchAllComics()
+      allComics
+          .then((allComics) => {
+              if (allComics === 'there was an error') {
+                  res.send('ERROR')
+              } else {
+                  res.render('comics', {
+                      allComics
+                  });
+              }
+          });
+  });
+  
+
+app.get('/collection', (req, res) => {
+    let collection = getCollectionAll()
+      collection
+          .then((collection) => {
+              if (collection === 'there was an error') {
+                  res.send('ERROR')
+              } else {
+                  res.render('collection', {
+                      collection
+                  });
+              }
+          });
+  });
+  
+
 
 //server initialization
 app.listen(process.env.PORT, () => {

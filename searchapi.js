@@ -5,7 +5,8 @@ const apiKey = process.env.API_KEY;
 const publicKey = process.env.PUBLIC_KEY;
 const {  
         getJsonData,
-        addJsonData
+        getCollection, 
+        addJsonData 
 } = require('./db')
 
 function searchComicsByCharName(character) {
@@ -29,9 +30,11 @@ function searchComicsByCharName(character) {
         })
 }
 
+
 function searchDatabase(charID){
     let comicURL = apiURL + `characters/${charID}/comics?offset=&orderBy=title&limit=10`;
     let databaseJson =  getJsonData(comicURL);
+
     return databaseJson
         .then((data) => {
             console.log('Data via DB....');
@@ -41,12 +44,13 @@ function searchDatabase(charID){
             let parsedData = JSON.parse(newData);
             // console.log(parsedData.data);
             return parsedData.data
-        })
+           })
         .catch(error => {
             let message = 'character not found';
             return message
-           })   
-}
+           })
+        }
+
 
 function searchComicsByCharID(charID, comicURL) {
     let ts = new Date().getTime();
@@ -159,7 +163,6 @@ function searchCharacterByLetter(letter) {
         .then((data) => {
             let characters = JSON.parse(data);
             let results = characters.data;
-            // console.log(results);
             return results
         })
         .catch(error => {
@@ -186,6 +189,8 @@ function searchComicsByLetter(letter) {
             return message
         })
 }
+
+
 
 module.exports = {
     searchComicsByCharID,
