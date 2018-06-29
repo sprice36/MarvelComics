@@ -17,7 +17,8 @@ const {
     searchSpecificCharacter,
     searchSpecificComic,
     searchCharacterByLetter,
-    searchComicsByLetter
+    searchComicsByLetter,
+    searchDatabase
 } = require('./searchapi');
 
 const setupAuth = require('./auth');
@@ -48,7 +49,6 @@ app.get('/', (req, res) => {
         layout: 'homepage',
         isLoggedIn: req.isAuthenticated()
     });
-})
 
 //search all characters
 app.get('/characters', (req, res) => {
@@ -58,13 +58,15 @@ app.get('/characters', (req, res) => {
             if (allCharacters === 'there was an error') {
                 res.send('ERROR')
             } else {
-                // console.log(allCharacters);
+                // console.log(allComics);
                 res.render('characters', {
                     allCharacters
                 });
             }
         });
-});
+
+    }  
+);
 
 //search characters by starting letter
 app.get('/characters/startswith/:id', (req, res) => {
@@ -84,16 +86,21 @@ app.get('/characters/startswith/:id', (req, res) => {
 
 //search comics associated with certain character
 app.get('/characters/:id', (req, res) => {
-    let comicData = searchComicsByCharID(req.params.id)
+    
+    let comicData = searchDatabase(req.params.id); 
+     return comicData;
+    
+    //let comicData = searchComicsByCharID(req.params.id)
+    console.log(comicData);
     comicData
         .then((comicData) => {
-            if (comicData === 'character not found') {
+          /*  if (comicData === 'character not found') {
                 res.send('character not found')
             } else {
-                // console.log(comicData);
+                console.log(comicData); */
                 res.render('singleCharacter', {comicData});
-            }
-        })
+            })
+       /* }) */ 
 });
 
 app.get('/comics/startswith/:id', (req, res) => {
@@ -103,6 +110,7 @@ app.get('/comics/startswith/:id', (req, res) => {
             if (allComics === '404') {
                 res.send('404')
             } else {
+                // console.log(allComics);
                 res.render('comics', {
                     allComics
                 });
