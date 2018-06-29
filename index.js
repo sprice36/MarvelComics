@@ -21,6 +21,11 @@ const {
     searchDatabase
 } = require('./searchapi');
 
+const {
+    getCollection, 
+    getCollectionAll
+} = require('./db');
+
 const setupAuth = require('./auth');
 const ensureAuthenticated = require('./auth').ensureAuthenticated;
 
@@ -48,7 +53,8 @@ app.get('/', (req, res) => {
     res.render('homepage', {
         layout: 'homepage',
         isLoggedIn: req.isAuthenticated()
-    });
+    })
+});
 
 //search all characters
 app.get('/characters', (req, res) => {
@@ -88,19 +94,28 @@ app.get('/characters/startswith/:id', (req, res) => {
 app.get('/characters/:id', (req, res) => {
     
     let comicData = searchDatabase(req.params.id); 
-     return comicData;
-    
+    let comicsID =  
+    console.log(req.params.id);
+     //console.log(comicData);
+   // return comicData
+    //  .then (( data => {
+      //    console.log(data.json);
+        //return JSON.parse(data.json);
+    //  }))
+    //  .catch((error => {
+        //  console.log("error occured");
+    //  }))
     //let comicData = searchComicsByCharID(req.params.id)
-    console.log(comicData);
-    comicData
-        .then((comicData) => {
-          /*  if (comicData === 'character not found') {
+   // console.log(comicData);
+      comicData
+       .then((comicData) => {
+            if (comicData === 'character not found') {
                 res.send('character not found')
             } else {
-                console.log(comicData); */
+                console.log(comicData); 
                 res.render('singleCharacter', {comicData});
-            })
-       /* }) */ 
+             }
+        })  
 });
 
 app.get('/comics/startswith/:id', (req, res) => {
@@ -131,6 +146,37 @@ app.get('/comics', (req, res) => {
             }
         });
 });
+
+app.get('/comicsdetail/:id', (req, res) => {
+    let allComics = searchAllComics()
+      allComics
+          .then((allComics) => {
+              if (allComics === 'there was an error') {
+                  res.send('ERROR')
+              } else {
+                  res.render('comics', {
+                      allComics
+                  });
+              }
+          });
+  });
+  
+
+app.get('/collection', (req, res) => {
+    let collection = getCollectionAll()
+      collection
+          .then((collection) => {
+              if (collection === 'there was an error') {
+                  res.send('ERROR')
+              } else {
+                  res.render('collection', {
+                      collection
+                  });
+              }
+          });
+  });
+  
+
 
 //server initialization
 app.listen(process.env.PORT, () => {

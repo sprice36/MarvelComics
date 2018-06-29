@@ -4,7 +4,9 @@ const apiURL = 'https://gateway.marvel.com/v1/public/';
 const apiKey = process.env.API_KEY;
 const publicKey = process.env.PUBLIC_KEY;
 const {  
-        getJsonData 
+        getJsonData,
+        getCollection
+
 } = require('./db')
 function searchComicsByCharName(character) {
     let charQuery = character
@@ -27,22 +29,26 @@ function searchComicsByCharName(character) {
         })
 }
 
+
 function searchDatabase(charID){
-    let comicURL =  apiURL + `characters/${charID}/comics?hasDigitalIssue=true&orderBy=title&limit=10` ; 
+    let comicURL = apiURL + `characters/${charID}/comics?offset=&orderBy=title&limit=10`;
     let databaseJson =  getJsonData(comicURL);
-
-    return databaseJson 
-      .then ((data) => {
-        console.log(data.json);
-        console.log("thats the data");
-        return JSON.parse(data.json);
-    })
-     .catch (error => {
-        let message = 'character not in database';
-        return message
-    }) 
+    // console.log(databaseJson);
+    return databaseJson
+        .then((data) => {
+            console.log(data.json);
+            // let comics = JSON.parse(data);
+            return data.json
+            // let jsonDATA = JSON.parse(data.json);
+            // console.log(data.json);
+            // return JSON.parse(data.json)
+        })
+        .catch(error => {
+            let message = 'character not found';
+            return message
+           })
+        
 }
-
 
 function searchComicsByCharID(charID) {
     // console.log('running now');
@@ -145,7 +151,7 @@ function searchCharacterByLetter(letter) {
         .then((data) => {
             let characters = JSON.parse(data);
             let results = characters.data;
-            console.log(results);
+           // console.log(results);
             return results
         })
         .catch(error => {
@@ -172,6 +178,8 @@ function searchComicsByLetter(letter) {
             return message
         })
 }
+
+
 
 module.exports = {
     searchComicsByCharID,
