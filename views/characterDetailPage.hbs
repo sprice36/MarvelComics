@@ -1,0 +1,16 @@
+<a href="/characters">Back to Characters List</a>
+
+{{#each characterDetail}}
+<div>
+    <img src="{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}" alt="">
+</div>
+<h1>
+Name: {{name}}    
+</h1>
+Total Comics: {{comics.available}} <br>
+<a href="/characters/details/{{id}}/comics">See Comics</a> <br>
+<a href="{{urls.0.url}}">More Character Information</a>
+<div>
+</div>
+
+{{/each}}
