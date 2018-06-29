@@ -34,20 +34,17 @@ function getCollectionAll(){
    return db.any('SELECT * FROM comics_collection2' );
   }
 
-/*
-function saveComic(){
+function saveComic(id, title, description, image, characters){
   console.log("saving comic..")
-  return db.one("INSERT into comics_collection2 (collectors)")  
-  return db.one("insert into Todos (title, isdone) values ('$1#', false ) returning id", [title]); 
+  return db.one("INSERT into comics (url_id, title, description, image, characters) VALUES ('$1#', '$2#', '$3#', '$4#', '$5#')", [id, title, description, image, characters]);
+} 
 
-} */
-  
+function saveComicToUserCollection(){}
 
 function addJsonData(comicsURL,dataString) {
     console.log('adding api data to DB');
     return db.one("insert into characters_comics (url, json) values ('$1#', '$2#')", [comicsURL, dataString]);
 }
-
 // function addNewUser(email)
  
 module.exports = {
@@ -55,6 +52,7 @@ module.exports = {
     getCollection,
     getCollectionAll,
     getJsonData,
-    addJsonData
+    addJsonData,
+    saveComic
 }; 
 

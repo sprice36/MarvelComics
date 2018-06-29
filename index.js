@@ -31,10 +31,15 @@ const {
     getCollectionAll
 } = require('./db');
 
+const {
+    saveComic
+} = require('./db');
+
+const setupAuth = require('./auth');
+const ensureAuthenticated = require('./auth').ensureAuthenticated;
+
 const setupAuth = require('./authalt');
 const ensureAuthenticated = require('./authalt').ensureAuthenticated;
-
-// const Todo = require('./db');
 
 const expressHbs = require('express-handlebars');
 
@@ -184,20 +189,36 @@ app.get('/comics', (req, res) => {
         })
 });
 
-app.get('/comicsdetail/:id', (req, res) => {
-    let allComics = searchAllComics()
-      allComics
-          .then((allComics) => {
-              if (allComics === 'there was an error') {
+app.get('/comics/details/:id', (req, res) => {
+    let comicDetail = searchSpecificComic(req.params.id)
+        comicDetail
+          .then((comicDetail) => {
+              if (comicDetail === 'there was an error') {
                   res.send('ERROR')
               } else {
-                  res.render('comics', {
-                      allComics
+                  res.render('comicsDetail', {
+                      comicDetail
                   });
               }
           });
   });
-  
+
+app.post('/comics/details/:id', (req, res) =>{
+    let id = req.params.id;
+    let title = req.body.title; 
+    let description = req.body.description;
+    let image = req.body.image;
+    let characters = req.body.characters;
+    let saveaComic = saveComic(id, title, description, image, characters)
+     saveaComic
+     .then(  
+       res.redirect(`/comics/details/${req.params.id}`)
+    )
+     .catch((error) =>{
+         console.log(error.message);
+     })
+
+})
 
 app.get('/collection', (req, res) => {
     let collection = getCollectionAll()

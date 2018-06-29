@@ -1,0 +1,35 @@
+<div>
+    <a href= "/comics">Back to comics</a>
+</div>
+
+{{#each comicDetail}}
+  <img src='{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}' alt=""> 
+ <div class = "comic-id" data-comic-id> 
+Comic ID: {{id}}
+</div>
+<p>
+Comic Title: {{title}}
+</p>
+<p>
+Comic Description:  {{description}}
+</p>
+<p>
+Characters:
+    {{#each characters.items}}
+    {{name}}
+    {{/each}}
+</p>
+<div>
+<form action="" method="POST">
+<button type="submit" data-target-save>Save Comic</button>
+<input type="hidden" name="id" value="{{id}}"> 
+<input type="hidden" name="title" value="{{title}}"> 
+<input type="hidden" name="description" value="{{description}}"> 
+<input type="hidden" name="image" value='{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}'>
+<input type="hidden" name="characters" value=' {{#each characters.items}}{{name}}{{/each}}'>
+
+</form>
+</div>
+{{/each}}
+
+
