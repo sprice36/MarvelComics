@@ -125,7 +125,7 @@ app.get('/characters/page/:offset', (req, res) => {
 
 //search characters by starting letter
 app.get('/characters/startswith/:id', (req, res) => {
-    var pageAt = parseInt(req.params.offset);
+    var pageAt = 1;
     let resultsRange = 20 * pageAt; 
     let allCharacters = searchCharacterByLetter(req.params.id)
     allCharacters
@@ -140,7 +140,6 @@ app.get('/characters/startswith/:id', (req, res) => {
                     letter : req.params.id,
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
-                    offset : pageAt + 1,
                     currentPage : pageAt
                 });
             }
@@ -161,7 +160,6 @@ app.get('/characters/startswith/:id/page/:offset', (req, res) => {
                 // console.log(allComics);
                 res.render('characterByLetterandOffset', {
                     characterByLetterandOffset, 
-                    offset : 2,
                     letter: letter,
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
@@ -317,7 +315,6 @@ app.get('/comics/startswith/:id', (req, res) => {
                     letter : letter,
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
-                    offset : pageAt + 1,
                     currentPage : pageAt
                 });
             }
@@ -532,6 +529,11 @@ app.get('/mycollection/:id', ensureAuthenticated, (req, res) => {
             console.log(error.message);
         })
 });
+
+app.get('/about', (req, res) => {
+    res.render('About');
+})
+
 
 //server initialization
 app.listen(process.env.PORT, () => {

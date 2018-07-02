@@ -34,16 +34,22 @@
     </ul>
 </div>
 
-<div>
-    {{#each allCharacters.results}}
-        <h1>{{this.name}}</h1>
+<div class="container">
+    {{#each allCharacters.results}} 
+    <div class="item-container">
+        <div>
         <a href="/characters/details/{{this.id}}">
             <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
-
+        </div> 
+        <div>
+         <h6>{{this.name}}</h6>
+         </div>
+          </div>
     {{/each}}
-   
+
 </div>
+
 
 <div>
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComics.total}} results.  
