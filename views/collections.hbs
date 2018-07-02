@@ -1,0 +1,18 @@
+<a href="/">Home</a>
+
+<h1>Users Collections:</h1>
+
+<div>
+{{#each userData}}
+        <div>
+        <div>
+        <a href="/collections/{{user_id}}">
+                <img src="{{image}}" alt="">
+        </a>
+        </div>
+        <div>
+        {{display_name}}
+        </div>
+        </div>
+{{/each}}
+</div>

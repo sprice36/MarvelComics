@@ -28,12 +28,12 @@ function getCollection(user_id){
 
 function getComicsCollection(user_id){
     console.log("running get collection function");
-    return db.any("SELECT * FROM comics_collection WHERE user_id ILIKE '%$1#%' ", [user_id]);
+    return db.any("SELECT * FROM comics_collection WHERE user_id = $1 ", [user_id]);
 }
 
 function getCharactersCollection(user_id){
     console.log("running get collection function");
-    return db.any("SELECT * FROM characters_collection WHERE user_id ILIKE '%$1#%' ", [user_id]);
+    return db.any("SELECT * FROM characters_collection WHERE user_id = $1", [user_id]);
 }
 
 function getCollectionAll(){
@@ -72,13 +72,17 @@ function getUser(user_id) {
     return db.oneOrNone('SELECT user_id FROM customer WHERE user_id = $1', [user_id]);
 }
 
+function getUserInfo(user_id) {
+    return db.oneOrNone('SELECT * FROM customer WHERE user_id = $1', [user_id]);
+}
+
 function addNewUser(display_name,email,name,image, user_id) {
     console.log('User not found in DB, creating new user');
     return db.one('INSERT INTO customer (display_name, email, name, image, user_id) VALUES ($1, $2, $3, $4, $5)', [display_name, email, name, image, user_id]);
 }
 
 function getAllUsers() {
-    return db.any('SELECT * FROM customer RETURNING display_name')
+    return db.any('SELECT * FROM customer')
 }
 
 function checkForComicInCollection(user_id, comic_id) {
@@ -105,6 +109,7 @@ module.exports = {
     addNewUser,
     getCollection,
     checkForComicInCollection,
-    checkForCharacterInCollection
+    checkForCharacterInCollection,
+    getUserInfo
 }; 
 

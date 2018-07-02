@@ -38,7 +38,7 @@ const setupAuth = (app) => {
         if (data) {
           return console.log('user found');
         } else {
-          return addNewUser(profile.username, profile.emails[0],profile.displayName, profile.photos[0], profile.id)
+          return addNewUser(profile.username, profile.emails[0],profile.displayName, profile.photos[0].value, profile.id)
             .then(userData => {
               return
             })
@@ -159,7 +159,7 @@ const ensureAuthenticated = (req, res, next) => {
 
   console.log('clearly, they are not authenticated');
   // denied. redirect to login
-  res.redirect('/login');
+  res.redirect('/');
 }
 
 // Our default export is the `setupAuth` function.

@@ -31,6 +31,8 @@ const {
     getCollection, 
     getCollectionAll,
     getUser,
+    getUserInfo,
+    getAllUsers,
     getComicsCollection,
     getCharactersCollection,
     checkForCharacterInCollection,
@@ -68,7 +70,8 @@ setupAuth(app);
 app.get('/', (req, res) => {
     res.render('homepage', {
         layout: 'homepage',
-        isLoggedIn: req.isAuthenticated()
+        isLoggedIn: req.isAuthenticated(),
+        id: req.session.passport.user
     });
 })
 
@@ -315,33 +318,69 @@ app.post('/comics/details/:id', (req, res) =>{
 })
 
 //route to collection page - shows all users and can click on user to see their collection
-app.get('/collection', (req, res) => {
-    let collection = getCollectionAll()
-    collection
-        .then((collection) => {
-            if (collection === 'there was an error') {
-                res.send('ERROR')
-            } else {
-                res.render('collection', {
-                    collection
-                });
-            }
-        });
+app.get('/collections', (req, res) => {
+    let users = getAllUsers();
+    users
+        .then((userData) => {
+            res.render('collections', {
+                userData
+            })
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
 });
 
+//route to collection page - shows all users and can click on user to see their collection
+app.get('/collections/:id', (req, res) => {
+    let comics = getComicsCollection(req.params.id);
+    let characters = getCharactersCollection(req.params.id);
+    characters
+        .then((characterData) => {
+            comics
+                .then((comicData) => {
+                    getUserInfo(req.params.id)
+                        .then((userData) => {
+                            res.render('userCollection', {
+                                characterData,
+                                comicData,
+                                userData
+                        })
+                        .catch(error => {
+                            console.log(error.message);
+                        })
+                    })
+                })
+                .catch(error => {
+                    console.log(error.message);
+                })
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+});
+
+
 //route to mycollection page - must be logged in
-app.get('/mycollection', (req, res) => {
-    let myCollection = getCollectionAll()
-    myCollection
-        .then((myCollection) => {
-            if (myCollection === 'there was an error') {
-                res.send('ERROR')
-            } else {
-                res.render('myCollection', {
-                    myCollection
-                });
-            }
-        });
+app.get('/mycollection/:id', ensureAuthenticated, (req, res) => {
+    let comics = getComicsCollection(req.params.id);
+    let characters = getCharactersCollection(req.params.id);
+    characters
+        .then((characterData) => {
+            comics
+                .then((comicData) => {
+                    res.render('myCollection', {
+                        characterData,
+                        comicData
+                    })
+                })
+                .catch(error => {
+                    console.log(error.message);
+                })
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
 });
 
 //server initialization
