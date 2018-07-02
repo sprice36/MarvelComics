@@ -1,14 +1,29 @@
-       {{#if isLoggedIn}}
-    <div class = "mycollection" data-target-collection>  
-        <a href = "/mycollection/{{id}}">My Collection</a>
-    </div> 
-    {{/if}}   
-    <div class="container">
-      {{#if isLoggedIn}}
-      <a href="/logout">Log Out</a>
-      {{else}}
-      <a href="/login">Log In</a>
-      {{/if}}
-    </div>
+
+
+<div class="main-search-bar">
+  
 </div>
-    
+
+<div class="main-container">
+  <div class="search-container-top">
+  <a href="/characters">
+  <h3>Search by Character</h3>
+  </a>
+  <a href="/characters">
+      <div class="photo-container">
+        <img src="/images/character2.jpg" alt="" class="character-photo">
+      </div>
+    </div>
+  </a>
+
+  <div class="search-container-bottom">
+  <a href="/comics">
+  <h3>Search by Comic</h3>
+  </a>
+  <a href="/comics">
+      <div class="photo-container">
+        <img src="/images/comics4.jpg" alt="" class="character-photo">
+      </div>
+    </div>
+  </a>
+</div>

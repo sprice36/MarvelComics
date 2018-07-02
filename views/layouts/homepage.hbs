@@ -4,37 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Marvel Comics Market</title>
+    <title>Marvel Comics Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel = "stylesheet" href = "/stylesheets/homepage.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Marvel Comics Market</a>
+        <a class="navbar-brand" href="/">Marvel Comics Marketplace</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                
             </ul>
-            
             <ul class="navbar-nav float-right">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/characters">Characters
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/comics">Comics
-                        <span class="sr-only">(current)</span>
-                    </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/collections">Collections
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                {{#if isLoggedIn}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/mycollection/{{id}}">My Collection
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                {{/if}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Marketplace
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -44,13 +45,23 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/collections">Login
+                    {{#if isLoggedIn}}
+                    <a class="nav-link" href="/logout">Logout
                         <span class="sr-only">(current)</span>
                     </a>
+                    {{else}}
+                    <a class="nav-link" href="/login">Login
+                        <span class="sr-only">(current)</span>
+                    </a>
+                    {{/if}}
                 </li>
             </ul>
         </div>
     </nav>
+<div class="background">
+</div>
+
+
 {{{body}}}    
 </body>
 </html>
