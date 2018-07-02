@@ -15,10 +15,13 @@ const {
     searchAllComics,
     searchAllComicsByOffset,
     searchAllCharacters,
+    searchAllCharactersByOffset,
     searchSpecificCharacter,
     searchSpecificComic,
     searchCharacterByLetter,
+    searchCharacterByLetterAndOffset,
     searchComicsByLetter,
+    searchComicsByLetterAndOffset,
     searchDatabase,
     searchDatabaseURL
 } = require('./searchapi');
@@ -81,14 +84,40 @@ app.get('/characters', (req, res) => {
             } else {
                 // console.log(allComics);
                 res.render('characters', {
-                    allCharacters
+                    allCharacters,
+                    offset : 2
                 });
             }
         });
 });
 
+//search all characters by offset
+app.get('/characters/page/:offset', (req, res) => {
+    var pageAt = parseInt(req.params.offset);
+    let resultsRange = 20 * pageAt; 
+    let allCharactersByOffset = searchAllCharactersByOffset(resultsRange)
+    allCharactersByOffset
+        .then((allCharacters) => {
+            if (allCharacters === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                // console.log(allComics);
+                res.render('characters', {
+                    allCharacters,
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20,
+                    offset : pageAt + 1,
+                    currentPage : pageAt
+                });
+            }
+        });
+});
+
+
 //search characters by starting letter
 app.get('/characters/startswith/:id', (req, res) => {
+    var pageAt = parseInt(req.params.offset);
+    let resultsRange = 20 * pageAt; 
     let allCharacters = searchCharacterByLetter(req.params.id)
     allCharacters
         .then((allCharacters) => {
@@ -96,8 +125,39 @@ app.get('/characters/startswith/:id', (req, res) => {
                 res.send('404')
             } else {
                 // console.log(allComics);
-                res.render('characters', {
-                    allCharacters
+                res.render('characterByLetter', {
+                    allCharacters, 
+                    offset : 2, 
+                    letter : req.params.id,
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20,
+                    offset : pageAt + 1,
+                    currentPage : pageAt
+                });
+            }
+        });
+});
+
+//search characters by starting letter and offset
+app.get('/characters/startswith/:id/page/:offset', (req, res) => {
+    var pageAt = parseInt(req.params.offset);
+    let resultsRange = 20 * pageAt; 
+    let letter = req.params.id;
+    let characterByLetterandOffset = searchCharacterByLetterAndOffset(letter, resultsRange)
+    characterByLetterandOffset
+        .then((characterByLetterandOffset) => {
+            if (characterByLetterandOffset === '404') {
+                res.send('404')
+            } else {
+                // console.log(allComics);
+                res.render('characterByLetterandOffset', {
+                    characterByLetterandOffset, 
+                    offset : 2,
+                    letter: letter,
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20,
+                    offset : pageAt + 1,
+                    currentPage : pageAt
                 });
             }
         });
@@ -118,7 +178,7 @@ app.get('/characters/details/:id', (req, res) => {
             }
         });
 });
-
+//saves characters to characters database
 app.post('/characters/details/:id', (req, res) =>{
     let id = req.params.id;
     let name = req.body.name; 
@@ -159,7 +219,9 @@ app.get('/characters/details/:id/comics', (req, res) => {
                         // console.log(comicData); 
                         console.log('njoy data');
                         res.render('characterInComics', {
-                            comicData
+                            comicData,
+                            offset : 2, 
+                            id : req.params.id
                         })
                     }
         })
@@ -168,17 +230,94 @@ app.get('/characters/details/:id/comics', (req, res) => {
         })
 })
 
+
+//search comics associated with certain character and offset
+app.get('/characters/details/:id/comics/page/:offset', (req, res) => {
+    var pageAt = parseInt(req.params.offset);
+    let resultsRange = 20 * pageAt; 
+    let comicURL = apiURL + `characters/${req.params.id}/comics?` + `offset=${resultsRange}` + '&orderBy=title&limit=20'
+    getJsonData(comicURL)
+        .then((data) => {
+            if (data) {
+                console.log('found data in local DB');
+                let comicData = searchDatabase(req.params.id);
+                return comicData
+            } else {
+                console.log('did not find data, running API call')
+                let comicData = searchComicsByCharID(req.params.id, comicURL);
+                return comicData
+            }
+        // return comicData
+        })
+        .then((comicData) => {
+                    if (comicData === 'character not found') {
+                        console.log('not found');
+                        res.send('character not found')
+                    } else {
+                        // console.log(comicData); 
+                        console.log('njoy data');
+                        res.render('characterInComics', {
+                            comicData,
+                            id : req.params.id,
+                            resultsRangeStart : resultsRange,
+                            resultsRangeEnd : resultsRange + 20,
+                            offset : pageAt + 1,
+                            currentPage : pageAt
+                        })
+                    }
+        })
+        .catch(error => {
+            return res.send(error.message)
+        })
+})
+
+
 //route to comics based on starting letter
 app.get('/comics/startswith/:id', (req, res) => {
-    let allComics = searchComicsByLetter(req.params.id)
-    allComics
-        .then((allComics) => {
-            if (allComics === '404') {
+    var pageAt = 1;
+    let resultsRange = 20 * pageAt; 
+    let letter = req.params.id;
+    let allComicsByLetter = searchComicsByLetter(letter)
+    allComicsByLetter
+        .then((allComicsByLetter) => {
+            if (allComicsByLetter === '404') {
                 res.send('404')
             } else {
                 // console.log(allComics);
-                res.render('comics', {
-                    allComics
+                res.render('comicByLetter', {
+                    allComicsByLetter,
+                    offset : 2,
+                    letter : letter,
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20,
+                    offset : pageAt + 1,
+                    currentPage : pageAt
+                });
+            }
+        });
+});
+
+
+//get comics that start with letter with offset
+app.get('/comics/startswith/:id/page/:offset', (req, res) => {
+    var pageAt = parseInt(req.params.offset);
+    //console.log(req.params.offset)
+    let letter = req.params.id;
+    let resultsRange = 20 * pageAt; 
+    let allComicsByLetter = searchComicsByLetterAndOffset(letter, resultsRange)
+    allComicsByLetter
+        .then((allComicsByLetter) => {
+            if (allComicsByLetter === '404') {
+                res.send('404')
+            } else {
+                // console.log(allComics);
+                res.render('comicByLetter', {
+                    allComicsByLetter,
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20,
+                    letter : letter,
+                    offset : pageAt + 1,
+                    currentPage : pageAt
                 });
             }
         });
@@ -204,17 +343,21 @@ app.get('/comics', (req, res) => {
                 res.send('ERROR')
             } else {
                 res.render('comics', {
-                    allComics
+                    allComics, 
+                    offset : 2
                 });
             }
         })
 });
 
-app.get('/comics/page/:pageNumber', (req, res) => {
-    let pageNumber = 1;
-    let index = 20;
-    let offset = pageNumber * index;
-    let comicURL = apiURL + 'comics?' + `offset=${offset}&` + 'limit=20&';
+//all comics with offset 
+app.get('/comics/page/:offset', (req, res) => {
+    var pageAt = parseInt(req.params.offset);
+    //console.log(req.params.offset)
+    let resultsRange = 20 * pageAt;  
+    //console.log(resultsRange);
+    let comicURL = apiURL + 'comics?' + `offset=${resultsRange}&` + 'limit=20&';
+    //console.log(comicURL)     
     getJsonData(comicURL)
         .then((data) => {
             if (data) {
@@ -223,7 +366,7 @@ app.get('/comics/page/:pageNumber', (req, res) => {
                 return allComics
             } else {
                 console.log('did not find data, running API call')
-                let allComics = searchAllComicsByOffset(comicURL, offset);
+                let allComics = searchAllComicsByOffset(comicURL, resultsRange);
                 return allComics
             }
             // return allComics
@@ -232,12 +375,19 @@ app.get('/comics/page/:pageNumber', (req, res) => {
             if (allComics === 'there was an error') {
                 res.send('ERROR')
             } else {
+                console.log(pageAt)
                 res.render('comics', {
-                    allComics
+                    allComics,
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20,
+                    offset : pageAt + 1,
+                    currentPage : pageAt
                 });
             }
         })
-});
+}) ;
+
+
 
 //route to comic detail page
 app.get('/comics/details/:id', (req, res) => {
@@ -293,15 +443,4 @@ app.get('/collection', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Your server is running at http://localhost:${process.env.PORT}`);
 });
-
-// Request Url: http://gateway.marvel.com/v1/public/comics
-// Request Method: GET
-// Params: {
-//   "apikey": "your api key",
-//   "ts": "a timestamp",
-//   "hash": "your hash"
-// }
-// Headers: {
-//   Accept: 
-// }
 

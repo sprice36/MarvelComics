@@ -35,16 +35,18 @@
 </div>
 
 <div>
-    {{#each allCharacters.results}}
-        <h1>{{this.name}}</h1>
+    {{#each allComicsByLetter.results}}
+        <h1>{{this.title}}</h1>
         <a href="/characters/details/{{this.id}}">
             <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
+
     {{/each}}
+   
 </div>
 
 <div>
-    Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComics.total}} results.  
+    Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComicsByLetter.total}} results.  
 </div> 
 Page {{currentPage}}
-<a href='/characters/page/{{offset}}'>Next page</a>
+<a href='/comics/startswith/{{letter}}/page/{{offset}}'>Next page</a>

@@ -43,8 +43,8 @@
 </div>
 
 <div>
-    Showing {{allComics.count}} of {{allComics.total}} results. 
+    Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComics.total}} results.  
 </div> 
-{{#each allComics}}
-<a href = './page/{{this.offset/this.limit}}'>Next page</a>
+Page {{currentPage}}
+<a href='/comics/page/{{offset}}'>Next page</a>
 

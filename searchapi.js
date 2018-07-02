@@ -196,6 +196,8 @@ function searchAllComicsByOffset(comicURL, offset){
 
 
 
+
+
 function searchAllCharacters() {
     let ts = new Date().getTime();
     let hash = md5(ts + apiKey + publicKey);
@@ -214,11 +216,47 @@ function searchAllCharacters() {
         })
 }
 
+function searchAllCharactersByOffset(offset){
+    let ts = new Date().getTime();
+    let hash = md5(ts + apiKey + publicKey);
+    let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
+    let requestURL = apiURL + 'characters?' + `offset=${offset}` + '&limit=20&' + apiAuthenticationString;
+    console.log(requestURL);
+    return rp(requestURL)
+          .then((data) => {
+             let characters = JSON.parse(data);
+             let results = characters.data;
+             return results
+    })
+    .catch((error) => {
+            let message = 'there was an error';
+            return message
+    })
+    }
+
 function searchCharacterByLetter(letter) {
     let ts = new Date().getTime();
     let hash = md5(ts + apiKey + publicKey);
     let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
     let requestURL = apiURL + 'characters?' + `nameStartsWith=${letter}` + '&orderBy=name&' + 'limit=20&' + `offset=0&` + apiAuthenticationString;
+    console.log(requestURL)
+    return rp(requestURL)
+        .then((data) => {
+            let characters = JSON.parse(data);
+            let results = characters.data;
+            return results
+        })
+        .catch(error => {
+            let message = '404';
+            return message
+        })
+}
+
+function searchCharacterByLetterAndOffset(letter, offset) {
+    let ts = new Date().getTime();
+    let hash = md5(ts + apiKey + publicKey);
+    let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
+    let requestURL = apiURL + 'characters?' + `nameStartsWith=${letter}` + '&orderBy=name&' + 'limit=20&' + `offset=${offset}` + '&' + apiAuthenticationString;
     console.log(requestURL)
     return rp(requestURL)
         .then((data) => {
@@ -251,16 +289,37 @@ function searchComicsByLetter(letter) {
         })
 }
 
+function searchComicsByLetterAndOffset(letter, offset) {
+    let ts = new Date().getTime();
+    let hash = md5(ts + apiKey + publicKey);
+    let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
+    let requestURL = apiURL + 'comics?' + `titleStartsWith=${letter}` + '&orderBy=title&' + 'limit=20&' + `offset=${offset}&` + apiAuthenticationString;
+    console.log(requestURL)
+    return rp(requestURL)
+        .then((data) => {
+            let comics = JSON.parse(data);
+            let results = comics.data;
+            return results
+        })
+        .catch(error => {
+            let message = '404';
+            console.log(error.message);
+            return message
+        })
+}
 module.exports = {
     searchComicsByCharID,
     searchComicsByCharName,
     searchAllComics,
     searchAllComicsByOffset,
     searchAllCharacters,
+    searchAllCharactersByOffset,
     searchSpecificCharacter,
     searchSpecificComic,
     searchCharacterByLetter,
+    searchCharacterByLetterAndOffset,
     searchComicsByLetter,
+    searchComicsByLetterAndOffset,
     searchDatabase,
     searchDatabaseURL
 }
