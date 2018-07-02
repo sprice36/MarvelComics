@@ -28,12 +28,12 @@ function getCollection(user_id){
 
 function getComicsCollection(user_id){
     console.log("running get collection function");
-    return db.any("SELECT * FROM comics_collection WHERE user_id ILIKE '%$1#%' ", [user_id]);
+    return db.any("SELECT * FROM comics_collection WHERE user_id = $1 ", [user_id]);
 }
 
 function getCharactersCollection(user_id){
     console.log("running get collection function");
-    return db.any("SELECT * FROM characters_collection WHERE user_id ILIKE '%$1#%' ", [user_id]);
+    return db.any("SELECT * FROM characters_collection WHERE user_id = $1", [user_id]);
 }
 
 function getCollectionAll(){
@@ -57,10 +57,9 @@ function saveCharacter(character_id, name, description, image){
     [character_id, name, description, image]);
 } 
 
-function saveCharacterToUserCollection(user_id, character_id, name, character_image){
+function saveCharacterToUserCollection(user_id, character_id, character_name, character_image){
     console.log("saving comic to users collection ..")
-    return db.one("INSERT into characters_collection (user_id, character_id, name, character_image) VALUES ('$1#', '$2#', '$3#', '$4#')", [user_id, character_id, name, character_image]);
-
+    return db.one("INSERT into characters_collection (user_id, character_id, character_name, character_image) VALUES ('$1#', '$2#', '$3#', '$4#')", [user_id, character_id, character_name, character_image]);
 }
 
 function addJsonData(comicsURL,dataString) {
@@ -73,13 +72,25 @@ function getUser(user_id) {
     return db.oneOrNone('SELECT user_id FROM customer WHERE user_id = $1', [user_id]);
 }
 
+function getUserInfo(user_id) {
+    return db.oneOrNone('SELECT * FROM customer WHERE user_id = $1', [user_id]);
+}
+
 function addNewUser(display_name,email,name,image, user_id) {
     console.log('User not found in DB, creating new user');
     return db.one('INSERT INTO customer (display_name, email, name, image, user_id) VALUES ($1, $2, $3, $4, $5)', [display_name, email, name, image, user_id]);
 }
 
 function getAllUsers() {
-    return db.any('SELECT * FROM customer RETURNING display_name')
+    return db.any('SELECT * FROM customer')
+}
+
+function checkForComicInCollection(user_id, comic_id) {
+    return db.oneOrNone("SELECT * FROM comics_collection WHERE user_id = $1 AND comic_id = $2;", [user_id, comic_id])
+}
+
+function checkForCharacterInCollection(user_id, character_id) {
+    return db.oneOrNone("SELECT * FROM characters_collection WHERE user_id = $1 AND character_id = $2;", [user_id, character_id])
 }
 
 module.exports = {
@@ -96,6 +107,9 @@ module.exports = {
     saveComicToUserCollection,
     saveCharacter,
     addNewUser,
-    getCollection
+    getCollection,
+    checkForComicInCollection,
+    checkForCharacterInCollection,
+    getUserInfo
 }; 
 

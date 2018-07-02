@@ -1,0 +1,28 @@
+<a href="/">Home</a>
+<br>
+
+<h3>
+My Characters:
+</h3>
+
+<div>
+{{#each characterData}}
+    <a href="/characters/details/{{character_id}}">
+        <img src='{{character_image}}' alt="">
+    </a>
+    <h5>{{character_name}}</h5>
+{{/each}}
+</div>
+
+<h3>
+My Comics:
+</h3>
+
+<div>
+    {{#each comicData}} 
+        <a href='/comics/details/{{comic_id}}'>
+            <img src='{{collectors_image}}' alt="">
+        </a>
+        <h5>{{title}}</h5>
+    {{/each}}
+</div>

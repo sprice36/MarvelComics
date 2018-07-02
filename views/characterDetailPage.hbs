@@ -8,13 +8,19 @@
 {{name}}    
 </h1>
 <div>
+{{#if description}}
 Description : {{description}} 
+    {{else}}
+Description: n/a
+{{/if}}
 </div>
 Total Comics: {{comics.available}} <br>
 <a href="/characters/details/{{id}}/comics">See Comics</a> <br>
 <a href="{{urls.0.url}}">More Character Information</a>
 <div>
 </div>
+
+{{#if ../isLoggedIn}}
 <div>
 <form action="" method="POST">
 <button type="submit" >Save Character</button>
@@ -24,6 +30,8 @@ Total Comics: {{comics.available}} <br>
 <input type="hidden" name="image" value='{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}'>
 
 </form>
+    {{else}}
+<button disabled="disabled">Login to save</button>
 </div>
-
+{{/if}}
 {{/each}}
