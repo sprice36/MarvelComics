@@ -15,7 +15,7 @@ function searchComicsByCharName(character) {
     let hash = md5(ts + apiKey + publicKey);
     let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
     let requestURL = apiURL + `characters?name=${charQuery}&orderBy=name&` + apiAuthenticationString
-   // console.log(requestURL)
+    // console.log(requestURL)
     return rp(requestURL)
         .then((data) => {
             let character = JSON.parse(data);
@@ -44,11 +44,11 @@ function searchDatabase(charID){
             let parsedData = JSON.parse(newData);
             // console.log(parsedData.data);
             return parsedData.data
-           })
+            })
         .catch(error => {
             let message = 'character not found';
             return message
-           })
+            })
 }
 
 function searchDatabaseURL(comicURL) {
@@ -79,7 +79,7 @@ function searchComicsByCharID(charID, comicURL) {
     let requestURL = comicURL + '&' + apiAuthenticationString
     console.log(requestURL)
     return rp(requestURL)
-         .then((data) => {
+        .then((data) => {
             //send data to db BEFORE json.parse...
             addJsonData(comicURL, data)
                 .then(() => {
@@ -129,7 +129,7 @@ function searchSpecificComic(comicID) {
     return rp(requestURL)
         .then((data) => {
             let comicData = JSON.parse(data);
-            console.log(comicData);
+            // console.log(comicData);
             return comicData.data.results
         })
         .catch((error) => {

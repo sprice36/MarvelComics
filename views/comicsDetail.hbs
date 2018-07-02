@@ -3,22 +3,32 @@
 </div>
 
 {{#each comicDetail}}
-  <img src='{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}' alt=""> 
- <div class = "comic-id" data-comic-id> 
+<img src='{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}' alt=""> 
+<div class = "comic-id" data-comic-id> 
 Comic ID: {{id}}
 </div>
 <p>
 Comic Title: {{title}}
 </p>
 <p>
+{{#if descriptions}}
 Comic Description:  {{description}}
+{{else}}
+Comic Description:  n/a
+{{/if}}
 </p>
 <p>
+{{#if characters.items}}
 Characters:
-    {{#each characters.items}}
-    {{name}}
-    {{/each}}
+{{#each characters.items}}
+    {{name}}, 
+{{/each}}
+{{else}}
+Characters: n/a
+{{/if}}
 </p>
+
+{{#if ../isLoggedIn}}
 <div>
 <form action="" method="POST">
 <button type="submit" data-target-save>Save Comic</button>
@@ -30,6 +40,9 @@ Characters:
 
 </form>
 </div>
-{{/each}}
+    {{else}}
+        <button disabled="disabled">Login to save</button>
+{{/if}}
 
+{{/each}}
 
