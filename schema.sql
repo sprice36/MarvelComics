@@ -39,7 +39,7 @@ CREATE TABLE comics_collection (
 
 CREATE TABLE characters-comics (
   Url varchar(100) PRIMARY KEY 
-  json_data 
+  json_data varchar
 )
 
 

@@ -15,6 +15,9 @@
     </div>
 {{/each}}
 
+
 <div>
-    Showing {{comicData.count}} of {{comicData.total}} results. <a href=""
-</div>
+    Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComics.total}} results.  
+</div> 
+Page {{currentPage}}
+<a href='/characters/details/{{id}}/comics/page/{{offset}}'>Next page</a>
