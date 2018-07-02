@@ -142,7 +142,7 @@ function searchAllComics(comicURL) {
     let ts = new Date().getTime();
     let hash = md5(ts + apiKey + publicKey);
     let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
-    let requestURL = apiURL + 'comics?' + 'offset=&' + 'limit=20&' + apiAuthenticationString;
+    let requestURL = apiURL + 'comics?' + 'offset=&' + 'limit=&20' + apiAuthenticationString;
     console.log(requestURL);
     return rp(requestURL)
         .then((data) => {
@@ -166,6 +166,36 @@ function searchAllComics(comicURL) {
         })
     }
     
+function searchAllComicsByOffset(comicURL, offset){
+    let ts = new Date().getTime();
+    let hash = md5(ts + apiKey + publicKey);
+    let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
+    let requestURL = apiURL + 'comics?' + `offset=${offset}` + '&limit=20&' + apiAuthenticationString;
+    console.log(requestURL);
+    return rp(requestURL)
+        .then((data) => {
+            //send data to db BEFORE json.parse...
+            addJsonData(comicURL, data)
+                .then(() => {
+                    console.log('added data to DB');
+                    return
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                    return error.message
+                })
+            let comics = JSON.parse(data);
+            let results = comics.data;
+            return results
+            })
+        .catch((error) => {
+            let message = 'there was an error'
+            return message
+        })
+    }
+
+
+
 function searchAllCharacters() {
     let ts = new Date().getTime();
     let hash = md5(ts + apiKey + publicKey);
@@ -225,6 +255,7 @@ module.exports = {
     searchComicsByCharID,
     searchComicsByCharName,
     searchAllComics,
+    searchAllComicsByOffset,
     searchAllCharacters,
     searchSpecificCharacter,
     searchSpecificComic,
