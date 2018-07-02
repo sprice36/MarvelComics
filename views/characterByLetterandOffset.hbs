@@ -35,18 +35,23 @@
 </div>
 
 <div>
+    <div class="container">
     {{#each characterByLetterandOffset.results}}
-        <h1>{{this.name}}</h1>
+        <div class="item-container">
+        <div>
         <a href="/characters/details/{{this.id}}">
             <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
-
-    {{/each}}
-   
+        </div>
+        <div>
+        <h6>{{this.name}}</h6>
+        </div>
+        </div>
+    {{/each}} 
 </div>
 
-<div>
+
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{characterByLetterandOffset.total}} results.  
-</div> 
+
 Page {{currentPage}}
 <a href='/characters/startswith/{{letter}}/page/{{offset}}'>Next page</a>

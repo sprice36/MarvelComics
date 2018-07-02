@@ -1,20 +1,18 @@
 <div>
     <a href="./">Back to Character</a>
 </div>
-
+<div class="container">
 {{#each comicData.results}}
+  <div class="item-container">
     <div>
-        <h4>
-        {{this.title}}
-        </h4>
-        <img src="{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}" alt="">
-        <p>
-        UPC: {{this.upc}}
-        </p>
-
+    <img src="{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}" alt="">
+     </div>
+     <div>
+     <h6>{{this.title}}</h6>
+     </div>
     </div>
 {{/each}}
-
+ </div>
 
 <div>
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComics.total}} results.  

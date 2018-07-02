@@ -38,7 +38,7 @@ const setupAuth = (app) => {
         if (data) {
           return console.log('user found');
         } else {
-          return addNewUser(profile.username, profile.emails[0],profile.displayName, profile.photos[0].value, profile.id)
+          return addNewUser(profile.username, profile.displayName, profile.photos[0].value, profile.id)
             .then(userData => {
               return
             })
