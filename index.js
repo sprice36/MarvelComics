@@ -28,7 +28,8 @@ const {
 
 const {
     getCollection, 
-    getCollectionAll
+    getCollectionAll,
+    getUser
 } = require('./db');
 
 const {
@@ -37,9 +38,6 @@ const {
 
 const setupAuth = require('./auth');
 const ensureAuthenticated = require('./auth').ensureAuthenticated;
-
-const setupAuth = require('./authalt');
-const ensureAuthenticated = require('./authalt').ensureAuthenticated;
 
 const expressHbs = require('express-handlebars');
 
@@ -147,7 +145,7 @@ app.get('/characters/details/:id/comics', (req, res) => {
         })
 })
 
-
+//route to comics based on starting letter
 app.get('/comics/startswith/:id', (req, res) => {
     let allComics = searchComicsByLetter(req.params.id)
     allComics
@@ -163,6 +161,7 @@ app.get('/comics/startswith/:id', (req, res) => {
         });
 });
 
+//route to all comics
 app.get('/comics', (req, res) => {
     let comicURL = apiURL + 'comics?' + 'offset=&' + 'limit=20&';
     getJsonData(comicURL)
@@ -189,52 +188,55 @@ app.get('/comics', (req, res) => {
         })
 });
 
+//route to comic detail page
 app.get('/comics/details/:id', (req, res) => {
-    let comicDetail = searchSpecificComic(req.params.id)
-        comicDetail
-          .then((comicDetail) => {
-              if (comicDetail === 'there was an error') {
-                  res.send('ERROR')
-              } else {
-                  res.render('comicsDetail', {
-                      comicDetail
-                  });
-              }
-          });
-  });
+    let comicDetail = searchSpecificComic(req.params.id);
+    comicDetail
+        .then((comicDetail) => {
+            if (comicDetail === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                return res.render('comicsDetail', {
+                    comicDetail,
+                    isLoggedIn: req.isAuthenticated()
+                });
+            }})
+        .catch(error => {
+            return console.log(error.message);
+        })
+});
 
+
+//post when saving a comic to favorites list
 app.post('/comics/details/:id', (req, res) =>{
     let id = req.params.id;
     let title = req.body.title; 
     let description = req.body.description;
     let image = req.body.image;
     let characters = req.body.characters;
+    // req.session.passport.login
     let saveaComic = saveComic(id, title, description, image, characters)
-     saveaComic
-     .then(  
-       res.redirect(`/comics/details/${req.params.id}`)
-    )
-     .catch((error) =>{
-         console.log(error.message);
-     })
-
+    saveaComic
+        .then(res.redirect(`/comics/details/${req.params.id}`))
+        .catch((error) =>{
+            console.log(error.message);
+        })
 })
 
+//route to collection page - shows all users and can click on user to see their collection
 app.get('/collection', (req, res) => {
     let collection = getCollectionAll()
-      collection
-          .then((collection) => {
-              if (collection === 'there was an error') {
-                  res.send('ERROR')
-              } else {
-                  res.render('collection', {
-                      collection
-                  });
-              }
-          });
-  });
-  
-
+    collection
+        .then((collection) => {
+            if (collection === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                res.render('collection', {
+                    collection
+                });
+            }
+        });
+});
 
 //server initialization
 app.listen(process.env.PORT, () => {

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "browsersync": "browser-sync start --server --files '**/*.css, **/*.html, **/*.js' --directory --port 3000 --browser 'Chrome'",
     "dev": "nodemon --ignore sessions index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.24.5",
     "nodemon": "^1.17.5"
   },
   "dependencies": {

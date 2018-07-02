@@ -4,7 +4,9 @@ const session = require('express-session');
 var FileStore = require('session-file-store')(session);
 // const GoogleStrategy = require('passport-google-oauth20').Strategy
 // const FacebookStrategy = require('passport-facebook').Strategy;
-const db = require('./db')
+const { 
+  getUser,
+  addNewUser } = require('./db')
 
 // const cookieParser = require('cookie-parser')
 // const users = require('./users');
@@ -30,12 +32,35 @@ const setupAuth = (app) => {
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: "http://localhost:3000/github/auth"
   }, (accessToken, refreshToken, profile, done) => {
-
+    let theUser = getUser(profile.id);
+    theUser
+      .then(data => {
+        if (data) {
+          return console.log('user found');
+        } else {
+          return addNewUser(profile.username, profile.emails[0],profile.displayName, profile.photos[0], profile.id)
+            .then(userData => {
+              return
+            })
+            .catch(error => {
+              return console.log(error.message);
+            })
+        }
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
+      // console.log(theUser);
+      // if (theUser) {
+      //   return console.log(`Found ${profile.username} in database.`)
+      // } else {
+      //   return console.log(`User not found. Adding ${profile.username} to database.`)
+      // }
     return done(null, profile);
     // // TODO: replace this with code that finds the user
     // // in the database.
     // let theUser = users.find(u => u.id === profile.id);
-
+    // console.log(user.displayName);
     // if (theUser) {
     //   return done(null, user);
     // } else {
