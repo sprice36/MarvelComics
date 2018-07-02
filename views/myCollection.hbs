@@ -1,28 +1,44 @@
-<a href="/">Home</a>
-<br>
-
-<h3>
-My Characters:
-</h3>
+<div class="outer-container">
 
 <div>
+<div class="container">
+<h3>My Characters:
+</h3>
+<div class="container">
+
 {{#each characterData}}
+<div class="item-container-large">
+    <div>
     <a href="/characters/details/{{character_id}}">
         <img src='{{character_image}}' alt="">
     </a>
-    <h5>{{character_name}}</h5>
+    </div>
+    <div>
+    <h6>{{character_name}}</h6>
+    </div>
+    </div>  
 {{/each}}
 </div>
-
-<h3>
-My Comics:
-</h3>
+</div>
 
 <div>
-    {{#each comicData}} 
-        <a href='/comics/details/{{comic_id}}'>
-            <img src='{{collectors_image}}' alt="">
-        </a>
-        <h5>{{title}}</h5>
+    <h3>My Comics:
+</h3>
+
+<div class="container">
+{{#each comicData}}
+ <div class="item-container-large">
+    <div>  
+    <a href='/comics/details/{{comic_id}}'>
+        <img src='{{collectors_image}}' alt="">
+    </a>
+    </div>
+    <div>
+    <h6>{{title}}</h6>
+    </div>
+    </div>
     {{/each}}
+</div>
+</div>
+
 </div>

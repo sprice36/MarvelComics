@@ -33,13 +33,20 @@
         <li><a href="/comics/startswith/z">Z</a></li>
     </ul>
 </div>
-<div>
+<div class="container">
     {{#each allComics.results}}
-    <h1>{{this.title}}</h1>
+     <div class="item-container">
+    <div>
     <a href = '/comics/details/{{this.id}}'>
     <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
     </a>
+    </div>
+    <div class="text-container">
+    <h6>{{this.title}}</h6>
+    </div>
+    </div>
     {{/each}}
+
 </div>
 
 <div>

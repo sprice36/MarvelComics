@@ -1,29 +1,45 @@
-<a href="/">Home</a>
-<br>
-
-<h3>
-    {{userData.display_name}}'s Characters:
-</h3>
+<div class="outer-container">
 
 <div>
-    
+    <h3 class="container" >
+    {{userData.display_name}}'s Characters: 
+    </h3>
+    <div class="container">
+      
     {{#each characterData}}
+    <div class="item-container-large">
+    <div>
     <a href="/characters/details/{{character_id}}">
         <img src='{{character_image}}' alt="">
     </a>
-    <h5>{{character_name}}</h5>
+    </div>
+    <div>
+    <h6>{{character_name}}</h6>
+    </div>
+    </div>
     {{/each}}
 </div>
+</div>
 
-<h3>
+<div>
+<h3 class="container">
     {{userData.display_name}}'s Comics:
 </h3>
 
-<div>
-    {{#each comicData}}
+<div class="container">
+{{#each comicData}}
+ <div class="item-container-large">
+    <div>  
     <a href='/comics/details/{{comic_id}}'>
         <img src='{{collectors_image}}' alt="">
     </a>
-    <h5>{{title}}</h5>
+    </div>
+    <div>
+    <h6>{{title}}</h6>
+    </div>
+    </div>
     {{/each}}
+</div>
+</div>
+
 </div>

@@ -76,9 +76,9 @@ function getUserInfo(user_id) {
     return db.oneOrNone('SELECT * FROM customer WHERE user_id = $1', [user_id]);
 }
 
-function addNewUser(display_name,email,name,image, user_id) {
+function addNewUser(display_name, name,image, user_id) {
     console.log('User not found in DB, creating new user');
-    return db.one('INSERT INTO customer (display_name, email, name, image, user_id) VALUES ($1, $2, $3, $4, $5)', [display_name, email, name, image, user_id]);
+    return db.one('INSERT INTO customer (display_name, name, image, user_id) VALUES ($1, $2, $3, $4)', [display_name, name, image, user_id]);
 }
 
 function getAllUsers() {
