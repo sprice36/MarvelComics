@@ -38,10 +38,13 @@
     <h1>{{this.title}}</h1>
     <a href = '/comics/details/{{this.id}}'>
     <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
-     </a>
+     </a> 
     {{/each}}
 </div>
 
 <div>
-    Showing {{allComics.count}} of {{allComics.total}} results.
-</div>
+    Showing {{allComics.count}} of {{allComics.total}} results. 
+</div> 
+{{#each allComics}}
+<a href = './page/{{this.offset/this.limit}}'>Next page</a>
+

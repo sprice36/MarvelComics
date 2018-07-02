@@ -5,12 +5,25 @@
     <img src="{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}" alt="">
 </div>
 <h1>
-Name: {{name}}    
+{{name}}    
 </h1>
+<div>
+Description : {{description}} 
+</div>
 Total Comics: {{comics.available}} <br>
 <a href="/characters/details/{{id}}/comics">See Comics</a> <br>
 <a href="{{urls.0.url}}">More Character Information</a>
 <div>
+</div>
+<div>
+<form action="" method="POST">
+<button type="submit" >Save Character</button>
+<input type="hidden" name="id" value="{{id}}"> 
+<input type="hidden" name="name" value="{{name}}"> 
+<input type="hidden" name="description" value="{{description}}"> 
+<input type="hidden" name="image" value='{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}'>
+
+</form>
 </div>
 
 {{/each}}
