@@ -33,8 +33,9 @@ const {
 const {
     getCollection, 
     getCollectionAll,
+    getUser,
     getComicsCollection,
-    getCharactersCollection,
+    getCharactersCollection
 } = require('./db');
 
 const {
@@ -229,6 +230,7 @@ app.get('/characters/details/:id/comics', (req, res) => {
         })
 })
 
+
 //search comics associated with certain character and offset
 app.get('/characters/details/:id/comics/page/:offset', (req, res) => {
     var pageAt = parseInt(req.params.offset);
@@ -269,7 +271,8 @@ app.get('/characters/details/:id/comics/page/:offset', (req, res) => {
         })
 })
 
-//get comics that start with letter
+
+//route to comics based on starting letter
 app.get('/comics/startswith/:id', (req, res) => {
     var pageAt = 1;
     let resultsRange = 20 * pageAt; 
@@ -293,6 +296,7 @@ app.get('/comics/startswith/:id', (req, res) => {
             }
         });
 });
+
 
 //get comics that start with letter with offset
 app.get('/comics/startswith/:id/page/:offset', (req, res) => {
@@ -318,7 +322,8 @@ app.get('/comics/startswith/:id/page/:offset', (req, res) => {
             }
         });
 });
-//get all comics 
+
+//route to all comics
 app.get('/comics', (req, res) => {
     let comicURL = apiURL + 'comics?' + `offset=&` + 'limit=20&';
     getJsonData(comicURL)
@@ -332,7 +337,6 @@ app.get('/comics', (req, res) => {
                 let allComics = searchAllComics(comicURL);
                 return allComics
             }
-            // return allComics
         })
         .then((allComics) => {
             if (allComics === 'there was an error') {
@@ -344,9 +348,8 @@ app.get('/comics', (req, res) => {
                 });
             }
         })
-
-
 });
+
 //all comics with offset 
 app.get('/comics/page/:offset', (req, res) => {
     var pageAt = parseInt(req.params.offset);
@@ -382,72 +385,62 @@ app.get('/comics/page/:offset', (req, res) => {
                 });
             }
         })
-
-
 }) ;
 
-app.get('/comics/details/:id', (req, res) => {
-    let comicDetail = searchSpecificComic(req.params.id)
-        comicDetail
-          .then((comicDetail) => {
-              if (comicDetail === 'there was an error') {
-                  res.send('ERROR')
-              } else {
-                  res.render('comicsDetail', {
-                      comicDetail
-                  });
-              }
-          });
-  });
 
+
+//route to comic detail page
+app.get('/comics/details/:id', (req, res) => {
+    let comicDetail = searchSpecificComic(req.params.id);
+    comicDetail
+        .then((comicDetail) => {
+            if (comicDetail === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                return res.render('comicsDetail', {
+                    comicDetail,
+                    isLoggedIn: req.isAuthenticated()
+                });
+            }})
+        .catch(error => {
+            return console.log(error.message);
+        })
+});
+
+
+//post when saving a comic to favorites list
 app.post('/comics/details/:id', (req, res) =>{
     let id = req.params.id;
     let title = req.body.title; 
     let description = req.body.description;
     let image = req.body.image;
     let characters = req.body.characters;
+    // req.session.passport.login
     let saveaComic = saveComic(id, title, description, image, characters)
-     saveaComic
-     .then(  
-       res.redirect(`/comics/details/${req.params.id}`)
-    )
-     .catch((error) =>{
-         console.log(error.message);
-     })
-
-    
-
+    saveaComic
+        .then(res.redirect(`/comics/details/${req.params.id}`))
+        .catch((error) =>{
+            console.log(error.message);
+        })
 })
 
+//route to collection page - shows all users and can click on user to see their collection
 app.get('/collection', (req, res) => {
     let collection = getCollectionAll()
-      collection
-          .then((collection) => {
-              if (collection === 'there was an error') {
-                  res.send('ERROR')
-              } else {
-                  res.render('collection', {
-                      collection
-                  });
-              }
-          });
-  });
-  
-
+    collection
+        .then((collection) => {
+            if (collection === 'there was an error') {
+                res.send('ERROR')
+            } else {
+                res.render('collection', {
+                    collection
+                });
+            }
+        });
+});
 
 //server initialization
 app.listen(process.env.PORT, () => {
     console.log(`Your server is running at http://localhost:${process.env.PORT}`);
 });
-
-// Request Url: http://gateway.marvel.com/v1/public/comics
-// Request Method: GET
-// Params: {
-//   "apikey": "your api key",
-//   "ts": "a timestamp",
-//   "hash": "your hash"
-// }
-// Headers: {
-//   Accept: 
-// }
 
