@@ -24,22 +24,45 @@ function getJsonData(comicURL) {
 function getCollection(userEmail){
     console.log("running get collection function");
     return db.any("SELECT collectors_comic_id, collectors_comic_title FROM comics_collection2 WHERE collectors_email ILIKE '%$1#%' ", [userEmail]);
-    //return db.any('SELECT collectors_comic_id, collectors_comic_title FROM comics_collection2' );
-
 }
+
+function getComicsCollection(username){
+  console.log("running get collection function");
+  return db.any("SELECT * FROM comics_collection WHERE collectors_email ILIKE '%$1#%' ", [username]);
+ }
+
+function getCharactersCollection(username){
+    console.log("running get collection function");
+    return db.any("SELECT * FROM characters_collection WHERE collectors_email ILIKE '%$1#%' ", [username]);
+  
+  }
 
 function getCollectionAll(){
     console.log("running get collection all function");
-    // return db.any("SELECT collectors_comic_id, collectors_comic_title FROM comics_collection2 WHERE collectors_email ILIKE '%$1#%' ", [userEmail]);
-   return db.any('SELECT * FROM comics_collection2' );
-}
+    return db.any('SELECT * FROM comics_collection' );
+  }
 
-function saveComic(comic_id, title, description, image, characters){
-    console.log("saving comic..")
-    return db.one("INSERT into comics (comic_id, title, description, image, characters) VALUES ('$1#', '$2#', '$3#', '$4#', '$5#')", [comic_id, title, description, image, characters]);
+function saveComic(id, title, description, image, characters){
+  console.log("saving comic..")
+  return db.one("INSERT into comics (comic_id, title, description, image, characters) VALUES ('$1#', '$2#', '$3#', '$4#', '$5#')", [id, title, description, image, characters]);
 } 
 
-function saveComicToUserCollection(){}
+function saveComicToUserCollection(username, collectors_email, comic_id, title, collectors_image){
+    console.log("saving comic to users collection ..")
+  return db.one("INSERT into comics_collection (username, collectors_email, comic_id, title, collectors_image) VALUES ('$1#', '$2#', '$3#', '$4#', '$5#')", [username, collectors_email, comic_id, title, collectors_image]);
+}
+
+function saveCharacter(character_id, name, description, image){
+    console.log("saving character..")
+    return db.one("INSERT into characters (character_id, name, description, image) VALUES ('$1#', '$2#', '$3#', '$4#')", 
+    [character_id, name, description, image]);
+} 
+
+function saveCharacterToUserCollection(username, collectors_email, character_id, name, character_image){
+    console.log("saving comic to users collection ..")
+  return db.one("INSERT into characters_collection (username, collectors_email, character_id, name, character_image) VALUES ('$1#', '$2#', '$3#', '$4#', '$5#')", [username, collectors_email, character_id, name, character_image]);
+
+}
 
 function addJsonData(comicsURL,dataString) {
     console.log('adding api data to DB');
@@ -60,16 +83,25 @@ function getAllUsers() {
     return db.any('SELECT * FROM customer RETURNING display_name')
 }
 
+function addNewUser(username, firstname, email){
+    console.log('adding user')
+    return db.one("INSERT into customer (username, firstname, email) VALUES ('$1#', '$2#' ,'$3#')" [username, firstname, email]);
+}
+
 
 module.exports = {
     getJsonData,
-    getCollection,
+    getComicsCollection,
+    getCharactersCollection,
     getCollectionAll,
     getJsonData,
     addJsonData,
     saveComic,
     getUser,
     getAllUsers,
+    saveCharacterToUserCollection,
+    saveComicToUserCollection,
+    saveCharacter,
     addNewUser
 }; 
 
