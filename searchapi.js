@@ -142,7 +142,7 @@ function searchAllComics(comicURL) {
     let ts = new Date().getTime();
     let hash = md5(ts + apiKey + publicKey);
     let apiAuthenticationString = 'ts=' + ts + '&apikey=' + publicKey + '&hash=' + hash;
-    let requestURL = apiURL + 'comics?' + 'offset=&' + 'limit=&20' + apiAuthenticationString;
+    let requestURL = apiURL + 'comics?' + 'offset=&' + 'limit=20&' + apiAuthenticationString;
     console.log(requestURL);
     return rp(requestURL)
         .then((data) => {
@@ -161,6 +161,7 @@ function searchAllComics(comicURL) {
             return results
             })
         .catch((error) => {
+            console.log(error.message);
             let message = 'there was an error'
             return message
         })

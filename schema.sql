@@ -3,7 +3,7 @@ CREATE TABLE customer (
   image varchar(100),
   email varchar(50) UNIQUE,
   display_name varchar(50),
-  user_id varchar(50) PRIMARY KEY 
+  user_id int PRIMARY KEY 
 );
 
 CREATE TABLE comics (
@@ -23,23 +23,22 @@ CREATE TABLE characters (
 
 
 CREATE TABLE characters_collection (
-  username varchar(50)  REFERENCES customer(user_id),
+  user_id int REFERENCES customer(user_id),
   collectors_email varchar(50) UNIQUE REFERENCES customer(email),
   character_id integer REFERENCES characters(character_id),
   character_name varchar REFERENCES characters(name) ,
   character_image varchar
-
 );
 
 CREATE TABLE comics_collection (
-  username varchar(50) REFERENCES customer(user_id),
+  user_id int REFERENCES customer(user_id),
   collectors_email varchar(50) UNIQUE REFERENCES customer(email),
   comic_id integer REFERENCES comics(comic_id),
-  title varchar(150) UNIQUE REFERENCES comics(title),
+  title varchar(150) REFERENCES comics(title),
   collectors_image varchar 
 );
 
-CREATE TABLE characters-comics (
- Url varchar(100) PRIMARY KEY
- json_data 
-)
+CREATE TABLE characters_comics (
+  Url varchar(100) PRIMARY KEY,
+  json varchar
+);
