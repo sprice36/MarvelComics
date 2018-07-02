@@ -71,10 +71,14 @@ app.use(staticMiddleware);
 setupAuth(app);
 
 app.get('/', (req, res) => {
+    let userID = 0;
+    if (req.session && req.session.passport && req.session.passport.user) {
+        userID = req.session.passport.user;
+    }
     res.render('homepage', {
         layout: 'homepage',
         isLoggedIn: req.isAuthenticated(),
-     //   id: req.session.passport.user
+        id: userID
     });
 })
 
@@ -193,8 +197,7 @@ app.post('/characters/details/:id', (req, res) =>{
     let image = req.body.image;
     let saveaCharacter = saveCharacter(id, name, description, image)
     saveaCharacter
-    .then(console.log('Character saved'))
-        // res.redirect(`/characters/details/${req.params.id}`))
+    .then(res.redirect(`/characters/details/${req.params.id}`))
     .catch((error) =>{
         console.log(error.message);
     })
@@ -438,10 +441,7 @@ app.post('/comics/details/:id', (req, res) =>{
     // req.session.passport.login
     let saveaComic = saveComic(id, title, description, image, characters)
     saveaComic
-        .then(() => {
-            return console.log('Comic saved');
-        })
-        // .then(res.redirect(`/comics/details/${req.params.id}`))
+        .then(res.redirect(`/comics/details/${req.params.id}`))
         .catch((error) =>{
             return console.log(error.message);
         })

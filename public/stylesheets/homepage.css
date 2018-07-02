@@ -10,26 +10,28 @@ html {
 
 html,
 body {
+    min-width: 360px;
     width: 100%;
     height: 100%;
-    background-image: url(../images/marvelbg.jpg);
+    color: aliceblue;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/marvelbg2.jpg);
     background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 50%;
 }
 
-.container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    border-width : 10px;
-    border-color: grey;
-    height: 75%;
-    width : 75%;
-}
-
-.input-div{
-    display: flex;
-    align-content: center; 
-    width: 100% ;
+.navbar {
+    z-index: 2;
 }
 
 .float-right {
@@ -38,3 +40,81 @@ body {
     float: right;
 }
 
+.main-container {
+    width: 100%;
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.search-container-top {
+    display: flex;
+    margin-top: 25px;
+    flex-direction: column;
+    width: 50%;
+    /* border:1px solid blue; */
+    min-width: 340px;
+    padding: 25px;
+}
+
+.search-container-bottom {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    /* border:1px solid blue; */
+    min-width: 340px;
+    padding: 25px;
+}
+
+.photo-container {
+    display: flex;
+    justify-content: center;
+    /* width: 50%; */
+    z-index: 0;
+    /* border: 1px red solid; */
+}
+
+.character-photo {
+    border-radius: 3%;
+    border: white 1px solid;
+    width: 100%;
+    min-width: 340px;
+    height: 100%;
+}
+
+a, a:hover{
+    color: aliceblue;
+    text-decoration: none;
+    text-decoration-color: none;
+    text-decoration-line: none;
+}
+
+@media screen and (min-width: 360px) {
+
+}
+
+@media screen and (min-width: 768px) {
+    .search-container-bottom, .search-container-top {
+            margin-top: 0px;
+            width: 60%;
+    }
+
+    .main-container {
+        margin-top: 35px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .main-container {
+        flex-direction: row;
+        margin-top: 75px;
+    }
+
+    .search-container-bottom, .search-container-top {
+            margin-top: 100px;
+            width: 45%;
+    }
+}
