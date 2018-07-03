@@ -34,13 +34,18 @@
     </ul>
 </div>
 
-<div>
+<div class="container">
     {{#each allComicsByLetter.results}}
-        <h1>{{this.title}}</h1>
-        <a href="/characters/details/{{this.id}}">
+       <div class="item-container">
+        <div>
+         <a href="/characters/details/{{this.id}}">
             <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
-
+        </div>
+        <div>
+        <h6>{{this.title}}</h6>
+        </div>
+        </div>
     {{/each}}
    
 </div>
