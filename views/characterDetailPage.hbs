@@ -1,7 +1,8 @@
+<div class="detail-main-container">
 
 {{#each characterDetail}}
 <div>
-    <img src="{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}" alt="">
+    <img class="detail-image-markup" src="{{thumbnail.path}}/portrait_uncanny.{{thumbnail.extension}}" alt="">
 </div>
 <h1>
 {{name}}    
@@ -12,17 +13,17 @@ Description : {{description}}
     {{else}}
 Description: n/a
 {{/if}}
-</div>
+</div> 
 Total Comics: {{comics.available}} <br>
 <a href="/characters/details/{{id}}/comics">See Comics</a> <br>
-<a href="{{urls.0.url}}">More Character Information</a>
+<a href="{{urls.0.url}}" target="_blank">More Character Information</a>
 <div>
 </div>
 
 {{#if ../isLoggedIn}}
 <div>
 <form action="" method="POST">
-<button type="submit" >Save Character</button>
+<button class="save-button btn btn-primary"type="submit" >Save Character</button>
 <input type="hidden" name="id" value="{{id}}"> 
 <input type="hidden" name="name" value="{{name}}"> 
 <input type="hidden" name="description" value="{{description}}"> 
@@ -34,3 +35,4 @@ Total Comics: {{comics.available}} <br>
 </div>
 {{/if}}
 {{/each}}
+</div>

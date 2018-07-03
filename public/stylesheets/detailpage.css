@@ -62,19 +62,22 @@ body {
     justify-content: center; 
 }
 
+.detail-images {
+    width: 216px;
+}
+
 .ul-letters li {
     padding: 10px;
     padding-bottom: 0px;
-    color: white;
+    color: aliceblue;
     text-decoration: none;
 }
 
 .ul-letters li:hover {
-    color: white;
-    text-decoration-color: white;
+    color: aliceblue;
+    text-decoration-color: aliceblue;
     text-decoration: none;
 }
-
 
 .container {
     display: flex;
@@ -85,13 +88,15 @@ body {
 
 h6 {
     display: flex;
-    color : white;
+    /* color : aliceblue; */
 }
 
 .item-container{
     display: flex;
     flex-direction: column;
     width: 216px;
+    /* padding: 15px; */
+    /* border: 1px blue solid; */
 }
 
 .text-container{
@@ -107,9 +112,83 @@ h6 {
 .item-container-large{
     display: flex;
     flex-direction: column;
-    width: 450px; 
+    width: 460px; 
 }
 
 .characterInComics {
     margin-top: 50px;
 }
+
+.lets-add-margin {
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+
+.detail-main-container {
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+.detail-image-markup {
+    border: 2px solid red;
+    border-radius: 2%;
+}
+
+a:visited, a:active{
+    text-decoration: none;
+    /* color: aliceblue; */
+}
+
+a { 
+    /* color: aliceblue; */
+}
+
+.save-button {
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.test-item-container {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 216px;
+    /* border: 1px solid grey; */
+    /* margin: 5px; */
+}
+
+.test-images {
+    width: 100%;
+}
+
+.test-item-container:hover {
+    padding-top: 0px;
+    padding-bottom: 10px;
+}
+
+.card-box {
+    display: flex;
+    /* padding: 0px 2px 0px 2px; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darkred;
+    height: 45px;
+    border: 1px solid rgba(4,4,4,.3);
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.card-box-comics {
+    display: flex;
+    /* padding: 0px 2px 0px 2px; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darkred;
+    height: 45px;
+    border: 1px solid rgba(4,4,4,.3);
+    font-size: 12px;
+    overflow-y: hidden;
+}
+
