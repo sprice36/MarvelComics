@@ -233,7 +233,7 @@ app.post('/characters/details/:id', (req, res) =>{
 app.get('/characters/details/:id/comics', (req, res) => {
     var pageAt = 1;
     let resultsRange = 20 * pageAt; 
-    let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=10`
+    let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=20`
     getJsonData(comicURL)
         .then((data) => {
             if (data) {
