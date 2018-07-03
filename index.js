@@ -86,7 +86,7 @@ app.get('/', (req, res) => {
 //search all characters
 app.get('/characters', (req, res) => {
     var pageAt = 1;
-    let resultsRange = 20 * pageAt;
+    let resultsRange = pageAt;
     let allCharacters = searchAllCharacters()
     allCharacters
         .then((allCharacters) => {
@@ -97,10 +97,10 @@ app.get('/characters', (req, res) => {
                 res.render('characters', {
                     allCharacters,
                     isLoggedIn: req.isAuthenticated(),
-                    offset : 2, 
+                    offset : pageAt, 
                     currentPage : pageAt,
                     resultsRangeStart : resultsRange,
-                    resultsRangeEnd : resultsRange + 20
+                    resultsRangeEnd : resultsRange * 20
                 });
             }
         });
@@ -133,7 +133,7 @@ app.get('/characters/page/:offset', (req, res) => {
 //search characters by starting letter
 app.get('/characters/startswith/:id', (req, res) => {
     var pageAt = 1;
-    let resultsRange = 20 * pageAt; 
+    let resultsRange = pageAt; 
     let allCharacters = searchCharacterByLetter(req.params.id)
     allCharacters
         .then((allCharacters) => {
@@ -143,10 +143,10 @@ app.get('/characters/startswith/:id', (req, res) => {
                 // console.log(allComics);
                 res.render('characterByLetter', {
                     allCharacters, 
-                    offset : 2, 
+                    offset : pageAt, 
                     letter : req.params.id,
                     resultsRangeStart : resultsRange,
-                    resultsRangeEnd : resultsRange + 20,
+                    resultsRangeEnd : resultsRange * 20,
                     currentPage : pageAt,
                     isLoggedIn: req.isAuthenticated()
                 });
@@ -206,7 +206,9 @@ app.post('/characters/details/:id', (req, res) =>{
     let image = req.body.image;
     let saveaCharacter = saveCharacter(id, name, description, image)
     saveaCharacter
-    .then(res.redirect(`/characters/details/${req.params.id}`))
+    .then(res.redirect(`/characters/details/${req.params.id}`)
+            
+                        )
     .catch((error) =>{
         console.log(error.message);
     })
@@ -232,7 +234,7 @@ app.post('/characters/details/:id', (req, res) =>{
 //search comics associated with certain character
 app.get('/characters/details/:id/comics', (req, res) => {
     var pageAt = 1;
-    let resultsRange = 20 * pageAt; 
+    let resultsRange = pageAt; 
     let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=20`
     getJsonData(comicURL)
         .then((data) => {
@@ -256,11 +258,11 @@ app.get('/characters/details/:id/comics', (req, res) => {
                         console.log('njoy data');
                         res.render('characterInComics', {
                             comicData,
-                            offset : 2, 
+                            offset : pageAt, 
                             id : req.params.id,
                             currentPage : pageAt,
                             resultsRangeStart : resultsRange,
-                            resultsRangeEnd : resultsRange + 20,
+                            resultsRangeEnd :  resultsRange * 20,
                             isLoggedIn: req.isAuthenticated()
                         })
                     }
@@ -316,7 +318,7 @@ app.get('/characters/details/:id/comics/page/:offset', (req, res) => {
 //route to comics based on starting letter
 app.get('/comics/startswith/:id', (req, res) => {
     var pageAt = 1;
-    let resultsRange = 20 * pageAt; 
+    let resultsRange = pageAt; 
     let letter = req.params.id;
     let allComicsByLetter = searchComicsByLetter(letter)
     allComicsByLetter
@@ -327,10 +329,10 @@ app.get('/comics/startswith/:id', (req, res) => {
                 // console.log(allComics);
                 res.render('comicByLetter', {
                     allComicsByLetter,
-                    offset : 2,
+                    offset : pageAt,
                     letter : letter,
                     resultsRangeStart : resultsRange,
-                    resultsRangeEnd : resultsRange + 20,
+                    resultsRangeEnd : resultsRange * 20,
                     currentPage : pageAt,
                     isLoggedIn: req.isAuthenticated()
                 });
@@ -368,7 +370,7 @@ app.get('/comics/startswith/:id/page/:offset', (req, res) => {
 //route to all comics
 app.get('/comics', (req, res) => {
     var pageAt = 1 ;
-    let resultsRange = 20 * pageAt;
+    let resultsRange = pageAt;
     let comicURL = apiURL + 'comics?' + `offset=&` + 'limit=20&';
     getJsonData(comicURL)
         .then((data) => {
@@ -388,11 +390,11 @@ app.get('/comics', (req, res) => {
             } else {
                 res.render('comics', {
                     allComics, 
-                    offset : 2, 
+                    offset : pageAt, 
                     currentPage : pageAt,
                     isLoggedIn: req.isAuthenticated(),
                     resultsRangeStart : resultsRange,
-                    resultsRangeEnd : resultsRange + 20
+                    resultsRangeEnd : resultsRange * 20
                 });
             }
         })
