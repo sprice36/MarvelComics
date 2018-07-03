@@ -1,18 +1,18 @@
 <div class="characterInComics"></div>
 <div class="container characterInComics">
 {{#each comicData.results}}
-  <div class="item-container">
+<div class="test-item-container">
     <div>
     <a href="/comics/details/{{this.id}}" class="a-images">
-    <img src="{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}" alt="">
+    <img class="test-images"src="{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}" alt="">
     </a>
-     </div>
-     <div>
-     <h6>{{this.title}}</h6>
-     </div>
+    </div>
+    <div class="card-box-comics">
+    {{this.title}}
+    </div>
     </div>
 {{/each}}
- </div>
+</div>
 
 <div>
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComics.total}} results.  

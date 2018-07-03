@@ -1,18 +1,21 @@
 
+<div class="lets-add-margin container">
 
 <h1>Users Collections:</h1>
 
-<div>
+<div class="container">
 {{#each userData}}
+        <div class="test-item-container">
         <div>
-        <div>
-        <a href="/collections/{{user_id}}">
-                <img src="{{image}}" alt="">
+        <a href="/collections/{{user_id}}" class="a-images">
+                <img class="test-images" src="{{image}}" alt="">
         </a>
         </div>
-        <div>
+        <div class="card-box">
         {{display_name}}
         </div>
         </div>
 {{/each}}
+</div>
+
 </div>
