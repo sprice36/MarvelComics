@@ -1,9 +1,11 @@
-
-<div class="container">
+<div class="characterInComics"></div>
+<div class="container characterInComics">
 {{#each comicData.results}}
   <div class="item-container">
     <div>
+    <a href="/comics/details/{{this.id}}" class="a-images">
     <img src="{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}" alt="">
+    </a>
      </div>
      <div>
      <h6>{{this.title}}</h6>
@@ -17,3 +19,5 @@
 </div> 
 Page {{currentPage}}
 <a href='/characters/details/{{id}}/comics/page/{{offset}}'>Next page</a>
+
+</div>

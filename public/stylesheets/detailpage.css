@@ -44,33 +44,43 @@ body {
 
 
 
-ul{
+.ul-letters{
     list-style: none;
     display: flex;
     flex-direction: row;
     align-content: stretch;
     justify-content: center;
     width: 100%; 
-    
+    padding: 5px;
+    padding-bottom: 0px;
 }
 
-a href{
+.a-images {
     display: flex;
     flex-direction: row;
     align-content: space-between;
     justify-content: center; 
 }
 
-li{
-    padding: 4px;
+.ul-letters li {
+    padding: 10px;
+    padding-bottom: 0px;
+    color: white;
+    text-decoration: none;
+}
+
+.ul-letters li:hover {
+    color: white;
+    text-decoration-color: white;
+    text-decoration: none;
 }
 
 
-div {
+.container {
     display: flex;
     flex-flow: row wrap;
     align-content: center;
-    /* justify-content: center; */
+    justify-content: center;
 }
 
 h6 {
@@ -98,4 +108,8 @@ h6 {
     display: flex;
     flex-direction: column;
     width: 450px; 
+}
+
+.characterInComics {
+    margin-top: 50px;
 }

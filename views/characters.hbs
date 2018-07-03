@@ -1,7 +1,8 @@
 
 
 <div>
-    <ul>
+    <ul class="ul-letters">
+        <li>Sort by: </li>
         <li><a href="/characters">All</a></li>
         <li><a href="/characters/startswith/a">A</a></li>
         <li><a href="/characters/startswith/b">B</a></li>
@@ -35,20 +36,20 @@
     {{#each allCharacters.results}} 
     <div class="item-container">
         <div>
-        <a href="/characters/details/{{this.id}}">
+        <a href="/characters/details/{{this.id}}" class="a-images">
             <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
         </div> 
         <div>
-         <h6>{{this.name}}</h6>
-         </div>
-          </div>
+        <h6>{{this.name}}</h6>
+        </div>
+        </div>
     {{/each}}
 
 </div>
 
 <div>
-    Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComics.total}} results.  
+    Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allCharacters.total}} results.  
 </div> 
 Page {{currentPage}}
 <a href='/characters/page/{{offset}}'>Next page</a>
