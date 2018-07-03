@@ -226,7 +226,7 @@ app.post('/characters/details/:id', (req, res) =>{
 
 //search comics associated with certain character
 app.get('/characters/details/:id/comics', (req, res) => {
-    let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=10`
+    let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=20`
     getJsonData(comicURL)
         .then((data) => {
             if (data) {
