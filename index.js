@@ -98,6 +98,7 @@ app.get('/characters', (req, res) => {
                     allCharacters,
                     isLoggedIn: req.isAuthenticated(),
                     offset : 2, 
+                    currentPage : pageAt,
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20
                 });
@@ -257,6 +258,7 @@ app.get('/characters/details/:id/comics', (req, res) => {
                             comicData,
                             offset : 2, 
                             id : req.params.id,
+                            currentPage : pageAt,
                             resultsRangeStart : resultsRange,
                             resultsRangeEnd : resultsRange + 20,
                             isLoggedIn: req.isAuthenticated()
@@ -386,7 +388,8 @@ app.get('/comics', (req, res) => {
             } else {
                 res.render('comics', {
                     allComics, 
-                    offset : 2,
+                    offset : 2, 
+                    currentPage : pageAt,
                     isLoggedIn: req.isAuthenticated(),
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20
