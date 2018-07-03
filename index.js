@@ -94,6 +94,7 @@ app.get('/characters', (req, res) => {
                 // console.log(allComics);
                 res.render('characters', {
                     allCharacters,
+                    isLoggedIn: req.isAuthenticated(),
                     offset : 2
                 });
             }
@@ -116,7 +117,8 @@ app.get('/characters/page/:offset', (req, res) => {
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
                     offset : pageAt + 1,
-                    currentPage : pageAt
+                    currentPage : pageAt,
+                    isLoggedIn: req.isAuthenticated()
                 });
             }
         });
@@ -140,7 +142,8 @@ app.get('/characters/startswith/:id', (req, res) => {
                     letter : req.params.id,
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
-                    currentPage : pageAt
+                    currentPage : pageAt,
+                    isLoggedIn: req.isAuthenticated()
                 });
             }
         });
@@ -164,7 +167,8 @@ app.get('/characters/startswith/:id/page/:offset', (req, res) => {
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
                     offset : pageAt + 1,
-                    currentPage : pageAt
+                    currentPage : pageAt,
+                    isLoggedIn: req.isAuthenticated()
                 });
             }
         });
@@ -246,7 +250,8 @@ app.get('/characters/details/:id/comics', (req, res) => {
                         res.render('characterInComics', {
                             comicData,
                             offset : 2, 
-                            id : req.params.id
+                            id : req.params.id,
+                            isLoggedIn: req.isAuthenticated()
                         })
                     }
         })
@@ -287,7 +292,8 @@ app.get('/characters/details/:id/comics/page/:offset', (req, res) => {
                             resultsRangeStart : resultsRange,
                             resultsRangeEnd : resultsRange + 20,
                             offset : pageAt + 1,
-                            currentPage : pageAt
+                            currentPage : pageAt,
+                            isLoggedIn: req.isAuthenticated()
                         })
                     }
         })
@@ -315,7 +321,8 @@ app.get('/comics/startswith/:id', (req, res) => {
                     letter : letter,
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
-                    currentPage : pageAt
+                    currentPage : pageAt,
+                    isLoggedIn: req.isAuthenticated()
                 });
             }
         });
@@ -341,7 +348,8 @@ app.get('/comics/startswith/:id/page/:offset', (req, res) => {
                     resultsRangeEnd : resultsRange + 20,
                     letter : letter,
                     offset : pageAt + 1,
-                    currentPage : pageAt
+                    currentPage : pageAt,
+                    isLoggedIn: req.isAuthenticated()
                 });
             }
         });
@@ -368,7 +376,8 @@ app.get('/comics', (req, res) => {
             } else {
                 res.render('comics', {
                     allComics, 
-                    offset : 2
+                    offset : 2,
+                    isLoggedIn: req.isAuthenticated()
                 });
             }
         })
@@ -404,7 +413,8 @@ app.get('/comics/page/:offset', (req, res) => {
                     resultsRangeStart : resultsRange,
                     resultsRangeEnd : resultsRange + 20,
                     offset : pageAt + 1,
-                    currentPage : pageAt
+                    currentPage : pageAt,
+                    isLoggedIn: req.isAuthenticated()
                 });
             }
         })
@@ -470,7 +480,8 @@ app.get('/collections', (req, res) => {
     users
         .then((userData) => {
             res.render('collections', {
-                userData
+                userData,
+                isLoggedIn: req.isAuthenticated()
             })
         })
         .catch(error => {
@@ -491,7 +502,8 @@ app.get('/collections/:id', (req, res) => {
                             res.render('userCollection', {
                                 characterData,
                                 comicData,
-                                userData
+                                userData,
+                                isLoggedIn: req.isAuthenticated()
                         })
                         .catch(error => {
                             console.log(error.message);
@@ -518,7 +530,8 @@ app.get('/mycollection/:id', ensureAuthenticated, (req, res) => {
                 .then((comicData) => {
                     res.render('myCollection', {
                         characterData,
-                        comicData
+                        comicData,
+                        isLoggedIn: req.isAuthenticated()
                     })
                 })
                 .catch(error => {
@@ -531,7 +544,9 @@ app.get('/mycollection/:id', ensureAuthenticated, (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-    res.render('About');
+    res.render('About', {
+        isLoggedIn: req.isAuthenticated()
+    });
 })
 
 

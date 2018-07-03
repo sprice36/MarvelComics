@@ -1,6 +1,4 @@
-<div>
-    <a href="/">Back to homepage</a>
-</div>
+<div class="outer-container">
 
 <div>
     <ul>
@@ -48,10 +46,13 @@
         </div>
         </div>
     {{/each}} 
+    </div>
 </div>
 
-
+<div>
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{characterByLetterandOffset.total}} results.  
+</div>
 
 Page {{currentPage}}
 <a href='/characters/startswith/{{letter}}/page/{{offset}}'>Next page</a>
+</div>

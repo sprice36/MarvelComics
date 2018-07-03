@@ -15,7 +15,7 @@ body {
     height: 100%;
     color: aliceblue;
     background-color: rgb(4, 4,4); 
-    z-index: -2;
+    /* z-index: -2; */
 }
 
 .background {
@@ -58,7 +58,7 @@ a href{
     display: flex;
     flex-direction: row;
     align-content: space-between;
-    justify-content: center;
+    justify-content: center; 
 }
 
 li{
@@ -70,7 +70,7 @@ div {
     display: flex;
     flex-flow: row wrap;
     align-content: center;
-    /*justify-content: center; */
+    /* justify-content: center; */
 }
 
 h6 {
@@ -81,7 +81,7 @@ h6 {
 .item-container{
     display: flex;
     flex-direction: column;
-     width: 216px;
+    width: 216px;
 }
 
 .text-container{
@@ -97,5 +97,5 @@ h6 {
 .item-container-large{
     display: flex;
     flex-direction: column;
-     width: 450px; 
+    width: 450px; 
 }
