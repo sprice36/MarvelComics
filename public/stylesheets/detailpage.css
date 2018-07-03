@@ -115,6 +115,17 @@ h6 {
     width: 460px; 
 }
 
+footer{
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+   
+}
+
+footer a {
+    color: slategrey;
+}
+
 .characterInComics {
     margin-top: 50px;
 }
@@ -191,4 +202,5 @@ a {
     font-size: 12px;
     overflow-y: hidden;
 }
+
 

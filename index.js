@@ -85,6 +85,8 @@ app.get('/', (req, res) => {
 
 //search all characters
 app.get('/characters', (req, res) => {
+    var pageAt = 1;
+    let resultsRange = 20 * pageAt;
     let allCharacters = searchAllCharacters()
     allCharacters
         .then((allCharacters) => {
@@ -95,7 +97,10 @@ app.get('/characters', (req, res) => {
                 res.render('characters', {
                     allCharacters,
                     isLoggedIn: req.isAuthenticated(),
-                    offset : 2
+                    offset : 2, 
+                    currentPage : pageAt,
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20
                 });
             }
         });
@@ -226,6 +231,8 @@ app.post('/characters/details/:id', (req, res) =>{
 
 //search comics associated with certain character
 app.get('/characters/details/:id/comics', (req, res) => {
+    var pageAt = 1;
+    let resultsRange = 20 * pageAt; 
     let comicURL = apiURL + `characters/${req.params.id}/comics?offset=&orderBy=title&limit=10`
     getJsonData(comicURL)
         .then((data) => {
@@ -251,6 +258,9 @@ app.get('/characters/details/:id/comics', (req, res) => {
                             comicData,
                             offset : 2, 
                             id : req.params.id,
+                            currentPage : pageAt,
+                            resultsRangeStart : resultsRange,
+                            resultsRangeEnd : resultsRange + 20,
                             isLoggedIn: req.isAuthenticated()
                         })
                     }
@@ -357,6 +367,8 @@ app.get('/comics/startswith/:id/page/:offset', (req, res) => {
 
 //route to all comics
 app.get('/comics', (req, res) => {
+    var pageAt = 1 ;
+    let resultsRange = 20 * pageAt;
     let comicURL = apiURL + 'comics?' + `offset=&` + 'limit=20&';
     getJsonData(comicURL)
         .then((data) => {
@@ -376,8 +388,11 @@ app.get('/comics', (req, res) => {
             } else {
                 res.render('comics', {
                     allComics, 
-                    offset : 2,
-                    isLoggedIn: req.isAuthenticated()
+                    offset : 2, 
+                    currentPage : pageAt,
+                    isLoggedIn: req.isAuthenticated(),
+                    resultsRangeStart : resultsRange,
+                    resultsRangeEnd : resultsRange + 20
                 });
             }
         })
