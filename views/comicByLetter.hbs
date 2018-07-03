@@ -1,6 +1,7 @@
 
 <div>
-    <ul>
+    <ul class="ul-letters">
+        <li>Sort by: </li>
         <li><a href="/characters">All</a></li>
         <li><a href="/characters/startswith/a">A</a></li>
         <li><a href="/characters/startswith/b">B</a></li>
@@ -33,9 +34,9 @@
 
 <div class="container">
     {{#each allComicsByLetter.results}}
-       <div class="item-container">
+    <div class="item-container">
         <div>
-         <a href="/characters/details/{{this.id}}">
+        <a href="/characters/details/{{this.id}}" class="a-images">
             <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
         </div>
@@ -44,7 +45,6 @@
         </div>
         </div>
     {{/each}}
-   
 </div>
 
 <div>

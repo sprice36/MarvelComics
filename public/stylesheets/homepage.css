@@ -10,6 +10,7 @@ html {
 
 html,
 body {
+    font-family: Arial, Helvetica, sans-serif;
     min-width: 360px;
     width: 100%;
     height: 100%;
@@ -41,6 +42,12 @@ body {
     float: right;
 }
 
+
+.nav-item:hover {
+    background-color: grey;
+    height:100%;
+}
+
 .main-container {
     width: 100%;
     margin-top: 50px;
@@ -51,12 +58,43 @@ body {
     text-decoration: none;
 }
 
+.container-effect {
+    position: relative;
+    width: 100%;
+    /* min-width: 340px; */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    /* background-image: url("/public/images/characteroverlay.jpg"); */
+    border-radius: 3%;
+    box-shadow: 5px 5px 5px black;
+    min-width: 340px;
+}
+
+.overlay-container {
+    display: flex;
+    justify-content: center;
+}
+
+.container-effect:hover .overlay {
+    opacity: 1;
+    /* border: 1px solid white; */
+}
+
 .search-container-top {
     display: flex;
     margin-top: 5px;
     flex-direction: column;
     width: 50%;
-    /* border:1px solid blue; */
     min-width: 340px;
     padding: 10px 25px;
 }
@@ -70,6 +108,7 @@ body {
     padding: 10px 25px;
 }
 
+
 .photo-container {
     display: flex;
     justify-content: center;
@@ -80,11 +119,17 @@ body {
 
 .character-photo {
     border-radius: 3%;
-    border: white 1px solid;
+    border: black 1px solid;
     width: 100%;
     min-width: 340px;
     height: 100%;
+    box-shadow: 5px 5px 5px black;
 }
+
+.character-photo:hover {
+    border: none;
+}
+
 
 a, a:hover{
     color: aliceblue;
@@ -115,7 +160,7 @@ a, a:hover{
     }
 
     .search-container-bottom, .search-container-top {
-            margin-top: 100px;
+            margin-top: 150px;
             width: 45%;
     }
 }
