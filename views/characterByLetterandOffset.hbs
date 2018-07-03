@@ -1,7 +1,8 @@
 <div class="outer-container">
 
 <div>
-    <ul>
+    <ul class="ul-letters">
+        <li>Sort by: </li>
         <li><a href="/characters">All</a></li>
         <li><a href="/characters/startswith/a">A</a></li>
         <li><a href="/characters/startswith/b">B</a></li>
@@ -35,14 +36,14 @@
 <div>
     <div class="container">
     {{#each characterByLetterandOffset.results}}
-        <div class="item-container">
+        <div class="test-item-container">
         <div>
-        <a href="/characters/details/{{this.id}}">
-            <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
+        <a href="/characters/details/{{this.id}}" class="a-images">
+            <img class="test-images" src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
         </a>
         </div>
-        <div>
-        <h6>{{this.name}}</h6>
+        <div class="card-box">
+        {{this.name}}
         </div>
         </div>
     {{/each}} 

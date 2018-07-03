@@ -1,41 +1,40 @@
-<div class="outer-container">
+<div class="outer-container lets-add-margin">
 
-<div>
-    <h3 class="container" >
+<div class="container">
+    <h3 class="" >
     {{userData.display_name}}'s Characters: 
     </h3>
     <div class="container">
-      
     {{#each characterData}}
-    <div class="item-container-large">
+    <div class="test-item-container">
     <div>
-    <a href="/characters/details/{{character_id}}">
-        <img src='{{character_image}}' alt="">
+    <a href="/characters/details/{{character_id}}" class="a-images-collection">
+        <img src='{{character_image}}' alt="" class="test-images">
     </a>
     </div>
-    <div>
-    <h6>{{character_name}}</h6>
+    <div class="card-box">
+    {{character_name}}
     </div>
     </div>
     {{/each}}
 </div>
 </div>
 
-<div>
+<div class="lets-add-margin">
 <h3 class="container">
     {{userData.display_name}}'s Comics:
 </h3>
 
 <div class="container">
 {{#each comicData}}
- <div class="item-container-large">
+<div class="test-item-container">
     <div>  
-    <a href='/comics/details/{{comic_id}}'>
-        <img src='{{collectors_image}}' alt="">
+    <a href='/comics/details/{{comic_id}}' class="a-images-collection">
+        <img src='{{collectors_image}}' alt="" class="test-images">
     </a>
     </div>
-    <div>
-    <h6>{{title}}</h6>
+    <div class="card-box-comics">
+    {{title}}
     </div>
     </div>
     {{/each}}

@@ -1,6 +1,7 @@
 
 <div>
-    <ul>
+    <ul class="ul-letters">
+        <li>Sort by: </li>
         <li><a href="/comics">All</a></li>
         <li><a href="/comics/startswith/a">A</a></li>
         <li><a href="/comics/startswith/b">B</a></li>
@@ -32,14 +33,14 @@
 </div>
 <div class="container">
     {{#each allComics.results}}
-     <div class="item-container">
+    <div class="test-item-container">
     <div>
-    <a href = '/comics/details/{{this.id}}'>
-    <img src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
+    <a href = '/comics/details/{{this.id}}' class="a-images">
+    <img class="test-images" src='{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}' alt=""> 
     </a>
     </div>
-    <div class="text-container">
-    <h6>{{this.title}}</h6>
+    <div class="card-box-comics">
+    {{this.title}}
     </div>
     </div>
     {{/each}}

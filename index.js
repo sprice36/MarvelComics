@@ -558,6 +558,12 @@ app.get('/mycollection/:id', ensureAuthenticated, (req, res) => {
         })
 });
 
+app.get('/marketplace', (req,res) => {
+    res.render('Marketplace', {
+        isLoggedIn: req.isAuthenticated()
+    });
+})
+
 app.get('/about', (req, res) => {
     res.render('About', {
         isLoggedIn: req.isAuthenticated()

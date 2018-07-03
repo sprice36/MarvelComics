@@ -1,23 +1,27 @@
-
-<div class="container">
+<div class="characterInComics"></div>
+<div class="container characterInComics">
 {{#each comicData.results}}
-  <div class="item-container">
+<div class="test-item-container">
     <div>
-    <img src="{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}" alt="">
-     </div>
-     <div>
-     <h6>{{this.title}}</h6>
-     </div>
+    <a href="/comics/details/{{this.id}}" class="a-images">
+    <img class="test-images"src="{{this.thumbnail.path}}/portrait_incredible.{{this.thumbnail.extension}}" alt="">
+    </a>
+    </div>
+    <div class="card-box-comics">
+    {{this.title}}
+    </div>
     </div>
 {{/each}}
- </div>
+</div>
 
 <div>
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{comicData.total}} results.  
 </div> 
 Page {{currentPage}}
 <a href='/characters/details/{{id}}/comics/page/{{offset}}'>Next page</a>
+</div>
 
 <footer> 
     <a href="https://developer.marvel.com/" target="_blank">Data provided by Marvel. © 2018 Marvel</a>
 </footer>
+
