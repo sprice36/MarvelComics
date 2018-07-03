@@ -44,7 +44,13 @@ body {
     float: right;
 }
 
-
+.ul-container {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
 
 .ul-letters{
     list-style: none;
@@ -121,7 +127,7 @@ footer{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    position: fixed;
+    position: relative;
     bottom: 3px;
     right: 5px;
     height: 20px;
