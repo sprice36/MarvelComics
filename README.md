@@ -1,6 +1,6 @@
 # Marvel Comics MarketPlace
 
- <img src= url(../images/marvelbg2.jpg>
+ <img src= url(../public/images/marvelbg2.jpg>
 
 ## Table of Contents
 
