@@ -59,7 +59,7 @@ body {
 }
 
 .ul-container {
-    display: flex;
+    display: none;
     flex-flow: row wrap;
     width: 100%;
     justify-content: center;
@@ -75,6 +75,12 @@ body {
     width: 100%; 
     padding: 5px;
     padding-bottom: 0px;
+}
+
+.letterdropdown {
+    width: 180px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 .a-images {
@@ -233,3 +239,29 @@ a {
     height: 100%;
 }
 
+@media screen and (min-width: 360px) {
+    .ul-container {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .ul-container {
+        display: none;
+    }
+
+    .letterdropdown {
+        width: 300px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .letterdropdown {
+        display: none;
+    }
+
+    .ul-container {
+        display: flex;
+    }
+
+}
