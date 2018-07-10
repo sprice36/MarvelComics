@@ -12,17 +12,19 @@
 
     </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="page-container">
+<div class="content-wrap">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Marvel Comics Marketplace</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" data-navbar>
             <ul class="navbar-nav mr-auto">
             </ul>
-            <ul class="navbar-nav float-right">
+            <ul class="navbar-nav float-right" data-navbar-ul>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/collections">Collections
@@ -30,11 +32,11 @@
                     </a>
                 </li>
                 {{#if isLoggedIn}}
-                    {{!-- <li class="nav-item active">
-                        <a class="nav-link" href="/mycollection/{{id}}">My Collection
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li> --}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/mycollection/{{id}}">My Collection
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
                 {{/if}}
                 <li class="nav-item active">
                     <a class="nav-link" href="/marketplace">Marketplace
@@ -64,6 +66,13 @@
 </div>
 
     {{{body}}}
+</div>
+    <footer>
+        <a href="https://developer.marvel.com/" target="_blank">Data provided by Marvel. © 2018 Marvel</a>
+    </footer>
+</div>
+
+<script src="scripts/index.js"></script>
 </body>
 
 </html>
