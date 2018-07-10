@@ -14,10 +14,18 @@
 {{/each}}
 </div>
 
-<div>
+
+<div class="container mt-2">
+    <div class="container">
+    Page {{currentPage}} -
+    <a class="pl-1" href='/characters/details/{{id}}/comics/page/{{offset}}'>Next page</a>
+    </div>
+    <div class="container">
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{comicData.total}} results.  
-</div> 
-Page {{currentPage}}
-<a href='/characters/details/{{id}}/comics/page/{{offset}}'>Next page</a>
+    </div> 
+</div>
+
+
+
 </div>
 

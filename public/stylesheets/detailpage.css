@@ -239,6 +239,10 @@ a {
     height: 100%;
 }
 
+.pagination-container {
+    
+}
+
 @media screen and (min-width: 360px) {
     .ul-container {
         display: none;
