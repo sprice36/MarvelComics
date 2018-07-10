@@ -34,6 +34,15 @@ body {
     opacity: 50%;
 }
 
+.page-container {
+    position: relative;
+    min-height: 100%;
+}
+
+.content-wrap {
+    padding-bottom: 20px;
+}
+
 .navbar {
     z-index: 2;
 }
@@ -42,6 +51,11 @@ body {
     display: flex;
     justify-content: right;
     float: right;
+}
+
+.nav-item:hover, .navbar-toggler:hover {
+    background-color: grey;
+    height: 100%;
 }
 
 .ul-container {
@@ -127,8 +141,8 @@ footer{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    position: relative;
-    bottom: 3px;
+    position: absolute;
+    bottom: 0px;
     right: 5px;
     height: 20px;
 }

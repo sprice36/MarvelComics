@@ -45,7 +45,8 @@ body {
 }
 
 
-.nav-item:hover {
+.nav-item:hover,
+.navbar-toggler:hover {
     background-color: grey;
     height:100%;
 }
