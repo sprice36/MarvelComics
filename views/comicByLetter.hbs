@@ -79,8 +79,12 @@
     {{/each}}
 </div>
 
+<div class="container mt-2">
+    <div class="container">
+        Page {{currentPage}} -
+        <a class="pl-1" href='/comics/startswith/{{letter}}/page/{{offset}}'>Next page</a>
+    </div>
 <div>
     Showing {{resultsRangeStart}} through {{resultsRangeEnd}} of {{allComicsByLetter.total}} results.  
 </div> 
-Page {{currentPage}}
-<a href='/comics/startswith/{{letter}}/page/{{offset}}'>Next page</a>
+</div>
