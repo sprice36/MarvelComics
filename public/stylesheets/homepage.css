@@ -38,6 +38,10 @@ body {
     z-index: 2;
 }
 
+nav {
+    cursor: pointer;
+}
+
 .float-right {
     display: flex;
     justify-content: right;
