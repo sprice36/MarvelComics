@@ -13,12 +13,8 @@ onclick = ''
 
 
 navBarToggler.addEventListener('click', (e) => {
-    alert('clicked');
-} )
-
-navBarToggler.addEventListener('click', (e) => {
 e.preventDefault();
-navBarUL.classList.toggle('float-right');
+// navBarUL.classList.toggle('float-right');
 navBarDiv.classList.toggle('collapse');
 })
 
