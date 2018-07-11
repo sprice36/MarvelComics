@@ -53,10 +53,10 @@ body {
     float: right;
 }
 
-.nav-item:hover, .navbar-toggler:hover {
+/* .nav-item:hover, .navbar-toggler:hover {
     background-color: grey;
     height: 100%;
-}
+} */
 
 .ul-container {
     display: none;
