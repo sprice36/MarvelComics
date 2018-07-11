@@ -9,7 +9,8 @@ if ('addEventListener' in document) {
     }, false);
 }
 
-navBarToggler.addEventListener('click', () => {
+navBarToggler.addEventListener('click', (e) => {
+e.preventDefault();
 navBarUL.classList.toggle('float-right');
 navBarDiv.classList.toggle('collapse');
 })
