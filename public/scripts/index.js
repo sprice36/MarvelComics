@@ -9,6 +9,13 @@ if ('addEventListener' in document) {
     }, false);
 }
 
+onclick = ''
+
+
+navBarToggler.addEventListener('click', (e) => {
+    alert('clicked');
+} )
+
 navBarToggler.addEventListener('click', (e) => {
 e.preventDefault();
 navBarUL.classList.toggle('float-right');
@@ -19,3 +26,4 @@ document.onclick = function () {
 }
 
 navBarToggler.onclick = function () {}
+
