@@ -34,13 +34,6 @@ body {
     opacity: 50%;
 }
 
-.navbar {
-    z-index: 2;
-}
-
-nav {
-    cursor: pointer;
-}
 
 .float-right {
     display: flex;

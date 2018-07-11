@@ -239,10 +239,6 @@ a {
     height: 100%;
 }
 
-nav {
-    cursor: pointer;
-}
-
 @media screen and (min-width: 360px) {
     .ul-container {
         display: none;
