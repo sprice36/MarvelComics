@@ -3,23 +3,23 @@ var navBarUL = document.querySelector('[data-navbar-ul');
 var navBarDiv = document.querySelector('[data-navbar');
 
 
-if ('addEventListener' in document) {
-    document.addEventListener('DOMContentLoaded', function () {
-        FastClick.attach(document.body);
-    }, false);
-}
+// if ('addEventListener' in document) {
+//     document.addEventListener('DOMContentLoaded', function () {
+//         FastClick.attach(document.body);
+//     }, false);
+// }
 
-onclick = ''
+// onclick = ''
 
 
-navBarToggler.addEventListener('click', (e) => {
-e.preventDefault();
-// navBarUL.classList.toggle('float-right');
-navBarDiv.classList.toggle('collapse');
-})
+// navBarToggler.addEventListener('click', (e) => {
+// e.preventDefault();
+// // navBarUL.classList.toggle('float-right');
+// navBarDiv.classList.toggle('collapse');
+// })
 
-document.onclick = function () {
-}
+// document.onclick = function () {
+// }
 
-navBarToggler.onclick = function () {}
+// navBarToggler.onclick = function () {}
 
