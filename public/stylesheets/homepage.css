@@ -139,12 +139,12 @@ nav {
 }
 
 
-a, a:hover{
+/* a, a:hover{
     color: aliceblue;
     text-decoration: none;
     text-decoration-color: none;
     text-decoration-line: none;
-}
+} */
 
 @media screen and (min-width: 360px) {
 
