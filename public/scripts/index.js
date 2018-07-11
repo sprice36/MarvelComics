@@ -12,3 +12,8 @@ if ('addEventListener' in document) {
         FastClick.attach(document.body);
     }, false);
 }
+
+document.onclick = function () {
+}
+
+div.onclick = function () {}
