@@ -51,10 +51,6 @@ body {
     height:100%;
 } */
 
-.clickable {
-    cursor: pointer;
-}
-
 .main-container {
     width: 100%;
     margin-top: 50px;

@@ -58,11 +58,6 @@ body {
     height: 100%;
 } */
 
-.clickable {
-    cursor: pointer;
-}
-
-
 .ul-container {
     display: none;
     flex-flow: row wrap;
