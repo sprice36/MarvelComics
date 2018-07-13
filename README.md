@@ -1,7 +1,5 @@
 # Marvel Comics MarketPlace
 
- <img src= url(../public/images/marvelbg2.jpg>
-
 ## Table of Contents
 
 1. About Marvel Comics MarketPlace
