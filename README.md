@@ -2,11 +2,29 @@
 
 ## Table of Contents
 
-1. About Marvel Comics MarketPlace
+1. Demo
 
-2. Using Marvel Comics MarketPlace
+2. About Marvel Comics MarketPlace
+
+3. Using Marvel Comics MarketPlace
    
-3. GitHub
+4. GitHub
+
+## Demo
+
+<a href="https://youtu.be/gDgvHEISkPY" target="_blank">Click here for the full Marvel Comics Marketplace demo on youtube!</a>
+
+Homepage and navigation bar
+<br>
+[![Homepage and navigation bar](https://github.com/sprice36/MarvelComics/blob/master/marvelcomicsmarketplacehome.gif?raw=true)](https://youtu.be/gDgvHEISkPY)
+<br>
+Searching by character
+<br>
+[![Character Search](https://github.com/sprice36/MarvelComics/blob/master/marvelcomicsmarketplacecharactersearch.gif?raw=true)](https://youtu.be/gDgvHEISkPY)
+<br>
+Searching by comic
+<br>
+[![Comic Search](https://github.com/sprice36/MarvelComics/blob/master/marvelcomicsmarketplacecomicsearch.gif?raw=true)](https://youtu.be/gDgvHEISkPY)
 
 ## About Marvel Comics MarketPlace
 <p> Marvel Comics MarketPlace is a application where Marvel fans can come together to buy, share, trade or sell their favorite comics from their collections. We have developed a comprehensive catalog of over 40,000 digital comics for our users to view or share with 
